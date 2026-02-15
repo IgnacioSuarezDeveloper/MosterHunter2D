@@ -24,28 +24,53 @@ namespace MonoGame
         private static string[,]map2d;//array de dos dimensiones con los caracteres.
         private static Entity[,] mapEntities;
         private static Entity[,] EntitysTexture2D;
-        private static int row = 5; //filas de los arrays 2d
-        private static int col = 5; //columnas de los arrays 2d
-        private static int TextureWidth; //ancho texturas
+        private static int row; //filas de los arrays 2d
+        private static int col; //columnas de los arrays 2d
+        private static int TextureWidth; //renderWidth texturas
         private static int TextureHeight; //alto texturas
-        private static Vector2 size; //vector ancho alto texturas.
+        private static Vector2 size; //vector renderWidth alto texturas.
         private static List<(int, int)> HousesIndex = new List<(int, int)>();
+        private static int OfsetXstart = 400;
+        private static int OfsetYstart  = 100;
+        private static bool init;
+        private static int renderWidth;
+
+        public static int PlayerPosY { get; private set; }
+        public static int PlayerPosX { get; private set; }
+
+        private static int topRenderY;
+
+        public static int RightRenderX { get; private set; }
+
+        private static int bottomRenderY;
+
+        public static int LeftRenderX { get; private set; }
+
         #endregion
-        
+
         #region metodos
-        public static string FileTo1DArray(string path) //lee el fichero de texto y devuevle un string con los caracteres y comas.
+        public static string FileTo1DArray(string path) //Lee el fichero de texto y devuevle un string con los caracteres y comas.
         {
-            
-            string file;
+            bool initCol = false;
+            string file = "";
             using(StreamReader sr = new StreamReader(path))
             {
-
-                file = sr.ReadToEnd();   
+                while (!sr.EndOfStream)
+                {
+                    file += sr.ReadLine();
+                    if (!initCol)
+                    {
+                        col = (file.Split(',').Length );
+                        initCol = true;
+                    }
+                    ++row;
+                }
+                   
             }
             return file;
         }//FileToString1D();
 
-        public static void StringTo2DArray(string file) //combierte el string con caracteres del mapa en un array de 1 dimension y otro de 2 dimensiones. 
+        public static void StringTo2DArray(string file) //Combierte el string con caracteres del mapa en un array de 1 dimension y otro de 2 dimensiones. 
         {
             map = file.Split(',');
             map2d = new string[row,col];
@@ -69,37 +94,92 @@ namespace MonoGame
             
         }//StringTo2DArray();
         
-        public static void MapEntitines(ContentManager content)
+        public static void MapEntities(ContentManager content) // Crea los objetos con la imagen correspondiente y la posicion correspondiente.
         {
+
             EntitysTexture2D = new Entity[row,col];
+            
             for (int i = 0; i < row; i++)
             {
-                for(int x = 0; x < col; x++)
-                {
-
-                    EntitysTexture2D[i, x] = new Entity(content, map2d[x, i] + ".png", x * 100, i * 100, new Vector2(100, 100), 1);
+                for(int x = 0; x < col - 2; x++)
+                { 
+                  
+                    if(map2d[i, x] == "h")
+                    {
+                        EntitysTexture2D[i, x] = new Entity(content, map2d[i, x] + ".png", (OfsetXstart + x * 100), (OfsetYstart + i * 100), new Vector2(100, 100), 1);
+                    }
+                    else if (map2d[i,x] == "c")
+                    {
+                        EntitysTexture2D[i, x] = new Entity(content, map2d[i, x] + ".png", (OfsetXstart - 300 + x * 100), (OfsetYstart  - 300 + i * 100), new Vector2(600, 600), 1);
+                    }
+                        
+                    
+                    
                 }
             }
-        }
+        }//MapEntities();
 
-        public static void DrawUpdate(SpriteBatch _spriteBatch)
+        public static void DrawUpdate(SpriteBatch _spriteBatch, MainCharacter Player) //Dibuja los entities.
         {
-
-            for (int i = 0; i < row; i++)
+            //haciendo que el render mueva con el jugador.
+            if (!init)
             {
-                for (int x = 0; x < col; x++)
+                renderWidth = 3;
+                PlayerPosY = (Math.Abs(((int)Player.Posy) / 100)); // me da el indice de arriba.
+                PlayerPosX = (Math.Abs(((int)Player.Posx) / 100)); // me da el indice de la derecha. 
+                topRenderY = PlayerPosY - renderWidth;
+                RightRenderX = PlayerPosX + renderWidth;
+                bottomRenderY = PlayerPosY + renderWidth;
+                LeftRenderX = PlayerPosX - renderWidth;
+                init = true;
+            }
+             
+
+            if (KeyBoardDetection.W)
+            {
+                if (topRenderY - (int)Player.Speed >= 0 && bottomRenderY - (int)Player.Speed >= 0  && topRenderY - (int)Player.Speed < row)
                 {
-                    _spriteBatch.Draw(EntitysTexture2D[i, x].TEXTURE, new Rectangle(((int)EntitysTexture2D[i, x].Posx), ((int)EntitysTexture2D[i, x].Posy), ((int)(EntitysTexture2D[i, x].SIZE.X)), (int)(EntitysTexture2D[i, x].SIZE.Y)), Color.White); // Pintar imagen
+                    topRenderY -= (int)Player.Speed;
+                    bottomRenderY -= (int)Player.Speed; 
+                }
+            }
+
+            //lo que renderizo el juego.
+            for (int i = topRenderY ; i < bottomRenderY; i++)
+            {
+                for (int x = LeftRenderX ; x < RightRenderX; x++)
+                {
+
+
+                        _spriteBatch.Draw(EntitysTexture2D[i, x].TEXTURE, new Rectangle(((int)EntitysTexture2D[i, x].Posx - OfsetXstart +(int)Player.SIZE.X / 2), ((int)EntitysTexture2D[i, x].Posy - OfsetYstart + (int)Player.SIZE.Y), ((int)(EntitysTexture2D[i, x].SIZE.X)), (int)(EntitysTexture2D[i, x].SIZE.Y)), Color.White); // Pintar imagen
+
+
+                }
+            }
+            for (int i = (PlayerPosY + renderWidth); i > (PlayerPosY); i--)
+            {
+                for (int x = (PlayerPosX - renderWidth); x < (PlayerPosX); x++)
+                {
+                    if (map2d[i,x] == "c")
+                    {
+                        _spriteBatch.Draw(EntitysTexture2D[i, x].TEXTURE, new Rectangle(((int)EntitysTexture2D[i, x].Posx), ((int)EntitysTexture2D[i, x].Posy), ((int)(EntitysTexture2D[i, x].SIZE.X)), (int)(EntitysTexture2D[i, x].SIZE.Y)), Color.White); // Pintar imagen
+
+                    }
                 }
             }
         }
+
         public static void Movement()
         {
             for (int i = 0; i < row; ++i)
             {
-                for (int x = 0; x < col; x++)
+                for (int x = 0; x < col - 2; x++)
                 {
-                    EntitysTexture2D[i, x].Posy -= 1;
+                    if (KeyBoardDetection.W) { EntitysTexture2D[i, x].Posy += 3; }
+                    if (KeyBoardDetection.S) { EntitysTexture2D[i, x].Posy -= 3; }
+                    if (KeyBoardDetection.D) { EntitysTexture2D[i,x].Posx -= 3; }
+                    if (KeyBoardDetection.A) { EntitysTexture2D[i, x].Posx += 3; }
+
                 }
             }
 

@@ -32,11 +32,11 @@ namespace MonoGame
         protected override void Initialize() //inicializacion de objetos propiedades.
         {
             
-            Player = new MainCharacter(Content, "PersonajeCaminaRecto",100,100,new Vector2(100,100),2); //Creando Objeto MainCharacter.
+            Player = new MainCharacter(Content, "PersonajeCaminaRecto", GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width/2 - 50, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height/2,new Vector2(100,100),2); //Creando Objeto MainCharacter.
             animation = Task.Run(Player.Animation);
             string file = Map.FileTo1DArray("map.txt");
             Map.StringTo2DArray(file);
-            Map.MapEntitines(Content);
+            Map.MapEntities(Content);
             //Map.EntitysTexture2DLoad();
             base.Initialize(); //utilizando Initialize de Game.
             
@@ -65,11 +65,12 @@ namespace MonoGame
 
         protected override void Draw(GameTime gameTime)  //bucle donde dibujar Imagenes.
         {
+
             GraphicsDevice.Clear(Color.CornflowerBlue); // Fondo
             
             _spriteBatch.Begin();
             if (!Menu.active) {
-                Map.DrawUpdate(_spriteBatch);
+                Map.DrawUpdate(_spriteBatch,Player);
                 Player.Draw(_spriteBatch); } //dibuajando entidades.
             if (Menu.active) { Menu.Draw(_spriteBatch); } //dibujando el meno.
             _spriteBatch.End();
