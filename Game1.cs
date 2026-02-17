@@ -13,7 +13,8 @@ namespace MonoGame
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private MainCharacter Player;
-        private Task animation;        
+        private Task animation;
+        private Texture2D fondo;
         public static int FPS
         {
             get { return fps; }
@@ -28,6 +29,8 @@ namespace MonoGame
             IsMouseVisible = true;
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            
+                
         }//Game1();
         protected override void Initialize() //inicializacion de objetos propiedades.
         {
@@ -49,6 +52,7 @@ namespace MonoGame
             Menu.Load(Content, "PlayButton"); //cargando la imagen del menu
 
             _spriteBatch = new SpriteBatch(GraphicsDevice); //cargando el spritebatch
+            fondo = Content.Load<Texture2D>("h");
 
         }
 
@@ -66,9 +70,10 @@ namespace MonoGame
         protected override void Draw(GameTime gameTime)  //bucle donde dibujar Imagenes.
         {
 
-            GraphicsDevice.Clear(Color.CornflowerBlue); // Fondo
+            GraphicsDevice.Clear(Color.Green); // Fondo
             
             _spriteBatch.Begin();
+            _spriteBatch.Draw(fondo, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.White);
             if (!Menu.active) {
                 Map.Renderer(Player);
                 Map.Draw(_spriteBatch, Player);
