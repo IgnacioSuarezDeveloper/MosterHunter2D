@@ -15,6 +15,8 @@ namespace MonoGame
         private MainCharacter Player;
         private Task animation;
         private Texture2D fondo;
+        private Texture2D pixel;
+
         public static int FPS
         {
             get { return fps; }
@@ -53,6 +55,8 @@ namespace MonoGame
 
             _spriteBatch = new SpriteBatch(GraphicsDevice); //cargando el spritebatch
             fondo = Content.Load<Texture2D>("h");
+            pixel = new Texture2D(GraphicsDevice, 1, 1);
+            pixel.SetData(new[] { Color.White });
 
         }
 
@@ -77,8 +81,32 @@ namespace MonoGame
             if (!Menu.active) {
                 //Map.Renderer(Player);
                 //Map.DrawRendered(_spriteBatch, Player);
-                Map.RenderUpdate(Player,_spriteBatch);
+                //Map.RenderUpdate(Player,_spriteBatch,300,300);
+                Map.RenderV3(Player, _spriteBatch, 1200, 1200);
                 Player.Draw(_spriteBatch); } //dibuajando entidades.
+            Rectangle rect = new Rectangle
+                (
+                    (int)Player.Posx,
+                   (int)Player.Posy,
+                   (int)Player.SIZE.X,
+                   (int)Player.SIZE.Y
+                   
+                );
+            int grosor = 3;
+            { // Línea superior
+                _spriteBatch.Draw(pixel, new Rectangle(rect.X, rect.Y, rect.Width, grosor), Color.Red);
+
+                // Línea inferior
+                _spriteBatch.Draw(pixel, new Rectangle(rect.X, rect.Y + rect.Height, rect.Width, grosor), Color.Red);
+
+                // Línea izquierda
+                _spriteBatch.Draw(pixel, new Rectangle(rect.X, rect.Y, grosor, rect.Height), Color.Red);
+
+                // Línea derecha
+                _spriteBatch.Draw(pixel, new Rectangle(rect.X + rect.Width, rect.Y, grosor, rect.Height), Color.Red);
+            }
+            
+
             if (Menu.active) { Menu.Draw(_spriteBatch); } //dibujando el meno.
             _spriteBatch.End();
             base.Draw(gameTime);

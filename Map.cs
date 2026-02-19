@@ -36,18 +36,13 @@ namespace MonoGame
         private static int OfsetYstart = -200;
         private static bool init;
         private static int renderWidth;
-
         public static int OfsetXIndex { get; private set; }
         public static int OfsetIndex { get; private set; }
         public static int PlayerPosY { get; private set; }
         public static int PlayerPosX { get; private set; }
-
         private static int topRenderY;
-
         public static int RightRenderX { get; private set; }
-
         private static int bottomRenderYInit;
-
         public static int LeftRenderX { get; private set; }
 
         private static int bottomRenderY;
@@ -77,7 +72,6 @@ namespace MonoGame
             }
             return file;
         }//FileToString1D();
-
         public static void StringTo2DArray(string file) //Combierte el string con caracteres del mapa en un array de 1 dimension y otro de 2 dimensiones. 
         {
             map = file.Split(',');
@@ -100,8 +94,7 @@ namespace MonoGame
                 }
             }
             
-        }//StringTo2DArray();
-        
+        }//StringTo2DArray();       
         public static void MapEntities(ContentManager content) // Crea los objetos con la imagen correspondiente y la posicion correspondiente.
         {
 
@@ -123,7 +116,6 @@ namespace MonoGame
                 }
             }
         }//MapEntities();
-
         public static void Renderer(MainCharacter Player) //Dibuja los entities.
         {
             if (!init) //inicializando variables.
@@ -158,18 +150,91 @@ namespace MonoGame
                 topRenderY = 0;
             }
         }
-
-        public static void RenderUpdate(MainCharacter Player, SpriteBatch _spriteBatch)
+        public static void RenderV3(MainCharacter Player, SpriteBatch _spriteBatch, int width, int heigth)
         {
             for (int i = 0; i < row - 1; i++)
             {
                 for (int x = 0; x < col - 2; x++)
                 {
-                    if (EntitysTexture2D[i, x].Posy > Player.Posy - 1000 && EntitysTexture2D[i, x].Posy < Player.Posy + 1000)
+
+                    if (
+                        EntitysTexture2D[i, x].Posy > Player.Posy - heigth &&
+                        EntitysTexture2D[i, x].Posy < Player.Posy + (int)Player.SIZE.Y + heigth &&
+
+                        EntitysTexture2D[i, x].Posx > Player.Posx - width &&
+                        EntitysTexture2D[i, x].Posx < Player.Posx + (int)Player.SIZE.X + width
+                       )
+                    {
+                        if (map2d[i, x] == "h")
+                        {
+                            _spriteBatch.Draw(
+                            EntitysTexture2D[i, x].TEXTURE,
+                            new Rectangle(
+                                ((int)EntitysTexture2D[i, x].Posx + OfsetXstart),
+                                ((int)EntitysTexture2D[i, x].Posy + OfsetYstart) ,
+                                (int)EntitysTexture2D[i, x].SIZE.X,
+                                (int)EntitysTexture2D[i, x].SIZE.Y
+                            ),
+                            Color.White
+                        );
+                        }
+
+                    }
+
+
+
+
+
+                }
+            }
+            for (int i = 0; i < row - 1; i++)
+            {
+                for (int x = 0; x < col - 2; x++)
+                {
+
+                    if (
+                        EntitysTexture2D[i, x].Posy > Player.Posy - heigth &&
+                        EntitysTexture2D[i, x].Posy < Player.Posy + (int)Player.SIZE.Y + heigth &&
+
+                        EntitysTexture2D[i, x].Posx > Player.Posx - width &&
+                        EntitysTexture2D[i, x].Posx < Player.Posx + (int)Player.SIZE.X + width
+                       )
+                    {
+                        if (map2d[i, x] == "c")
+                        {
+                            _spriteBatch.Draw(
+                            EntitysTexture2D[i, x].TEXTURE,
+                            new Rectangle(
+                                ((int)EntitysTexture2D[i, x].Posx + OfsetXstart) ,
+                                ((int)EntitysTexture2D[i, x].Posy + OfsetYstart) ,
+                                (int)EntitysTexture2D[i, x].SIZE.X,
+                                (int)EntitysTexture2D[i, x].SIZE.Y
+                            ),
+                            Color.White
+                        );
+                        }
+                            
+                    }
+
+
+
+
+
+                }
+            }
+        }
+        public static void RenderUpdate(MainCharacter Player, SpriteBatch _spriteBatch, int width, int height)
+        {   List<Vector2>indices = new List<Vector2>();
+            for (int i = 0; i < row - 1; i++)
+            {
+                for (int x = 0; x < col - 2; x++)
+                {
+                    if (EntitysTexture2D[i, x].Posy > Player.Posy - height && EntitysTexture2D[i, x].Posy < Player.Posy + height && EntitysTexture2D[i, x].Posx > Player.Posx - width && EntitysTexture2D[i, x].Posx < Player.Posx + width)
                     {
                         if (map2d[i, x] == "h")
                         {
                             _spriteBatch.Draw(EntitysTexture2D[i, x].TEXTURE, new Rectangle((((int)EntitysTexture2D[i, x].Posx + OfsetXstart) + (int)Player.SIZE.X / 2), (((int)EntitysTexture2D[i, x].Posy + OfsetYstart) + (int)Player.SIZE.Y), ((int)(EntitysTexture2D[i, x].SIZE.X)), (int)(EntitysTexture2D[i, x].SIZE.Y)), Color.White); // Pintar imagen
+                            indices.Add(new Vector2(i, x));
                         }
 
                     }
@@ -179,12 +244,13 @@ namespace MonoGame
             {
                 for (int x = 0; x < col - 2; x++)
                 {
-                    if (EntitysTexture2D[i, x].Posy > Player.Posy - 1000 && EntitysTexture2D[i, x].Posy < Player.Posy + 1000)
+                    if (EntitysTexture2D[i, x].Posy > Player.Posy - height && EntitysTexture2D[i, x].Posy < Player.Posy + height && EntitysTexture2D[i, x].Posx > Player.Posx - width && EntitysTexture2D[i, x].Posx < Player.Posx + width)
                     {
                         if (map2d[i, x] == "c")
                         {
                             _spriteBatch.Draw(EntitysTexture2D[i, x].TEXTURE, new Rectangle((((int)EntitysTexture2D[i, x].Posx + OfsetXstart) + (int)Player.SIZE.X / 2), (((int)EntitysTexture2D[i, x].Posy + OfsetYstart) + (int)Player.SIZE.Y), ((int)(EntitysTexture2D[i, x].SIZE.X)), (int)(EntitysTexture2D[i, x].SIZE.Y)), Color.White); // Pintar imagen
                         }
+
                     }
                 }
             } //dibujando las casas.
