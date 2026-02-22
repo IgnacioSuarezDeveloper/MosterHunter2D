@@ -68,7 +68,9 @@ namespace MonoGame
             if (!Menu.active) {
                 Map.Movement();
                 Player.Movement(); //movimiento del personaje principal.
-            };
+                
+            }
+            ;
             base.Update(gameTime);
         }
 
@@ -86,10 +88,19 @@ namespace MonoGame
                 Map.DrawWaterSprites(Player, _spriteBatch, (int)Map.Size.X, (int)Map.Size.Y);
 
                 Map.DrawHouseSprites(Player, _spriteBatch, (int)Map.Size.X, (int)Map.Size.Y);
+                if (Colides.PlayerEnteringBush(Player))
+                {
+                    Player.Draw(_spriteBatch);
+                    Map.DrawBushSprites(Player, _spriteBatch, (int)Map.Size.X, (int)Map.Size.Y);
+                }
+                else
+                {
+                    Map.DrawBushSprites(Player, _spriteBatch, (int)Map.Size.X, (int)Map.Size.Y);
+                    Player.Draw(_spriteBatch);
+                }
+                
 
-                Player.Draw(_spriteBatch);
-
-                Map.DrawBushSprites(Player, _spriteBatch, (int)Map.Size.X, (int)Map.Size.Y);
+                
                 } 
 
             //rectangulo rojo alrededor de player START.
@@ -114,6 +125,9 @@ namespace MonoGame
                 // Línea derecha
                 _spriteBatch.Draw(pixel, new Rectangle(rect.X + rect.Width, rect.Y, grosor, rect.Height), Color.Red);
             }
+            //rectangulo rojo alrededor de player END.
+            //rectangulo rojo alrededor de player START.
+          
             //rectangulo rojo alrededor de player END.
 
             if (Menu.active) { Menu.Draw(_spriteBatch); } //dibujando el meno.

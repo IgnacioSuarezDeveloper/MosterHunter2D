@@ -1,32 +1,59 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-
+using System.Collections.Generic;
 using System.IO;
 
 
 
 namespace MonoGame
 {
-    enum TextureTipes
-    {
-        hierba,
-        casa,
-    }
     internal static class Map
     {
-        #region propiedades
+         #region propiedades
         private static string[] map;//array de una dimension con los caracteres.
         private static string[,]map2d;//array de dos dimensiones con los caracteres.
         private static Entity[,] EntitysTexture2D;
         private static int row; //filas de los arrays 2d
         private static int col; //columnas de los arrays 2d
         private static Vector2 size = new Vector2(1200,1200); //vector renderWidth alto texturas.
-        private static int OfsetXstart = -200;
-        private static int OfsetYstart = -200;
+        public static int OfsetXstart = -200;
+        public static int OfsetYstart = -200;
+        private static List<Vector2> Bushes = new List<Vector2>();
+        private static List<Vector2> Houses = new List<Vector2>();
+
+        public static List<Vector2> BUSHES
+        {
+            get
+            {
+                return Bushes;
+            }
+        }
+        public static List<Vector2> HOUSES
+        {
+            get
+            {
+                return Houses;
+            }
+        }
         public static Vector2 Size
         {
             get { return size; }    
+        }
+        public static Entity[,] ENtitysTexture2D
+        {
+            get
+            {
+                return EntitysTexture2D;
+            }
+        }
+        public static int Row
+        {
+            get { return row; }
+        }
+        public static int Col
+        {
+            get { return col; }
         }
         public static int OfsetXIndex { get; private set; }
         public static int OfsetIndex { get; private set; }
@@ -97,6 +124,7 @@ namespace MonoGame
                     else if (map2d[i,x] == "c")
                     {
                         EntitysTexture2D[i, x] = new Entity(content, map2d[i, x] + ".png", (OfsetXstart - 300 + x * 100), (OfsetYstart  - 300 + i * 100), new Vector2(600, 600), 1);
+                        Houses.Add(new Vector2(x, i));
                     }
                     else if (map2d[i, x] == "a")
                     {
@@ -109,9 +137,12 @@ namespace MonoGame
                     else if (map2d[i, x] == "b")
                     {
                         EntitysTexture2D[i, x] = new Entity(content, map2d[i, x] + ".png", (OfsetXstart + x * 100), (OfsetYstart + i * 100), new Vector2(300, 300), 1);
+                        Bushes.Add(new Vector2(x, i));
+
                     }
                 }
             }
+
         }//MapEntities();
         public static void DrawBackground(MainCharacter Player, SpriteBatch _spriteBatch)
         {
@@ -240,6 +271,7 @@ namespace MonoGame
                             ),
                             Color.White
                         );
+
                         }
 
                     }

@@ -5,6 +5,15 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGame
 {
+    public enum Type
+    {
+        None,
+        Grass,
+        House,
+        Watter,
+        Bush,
+        Arena,
+    }
     internal class Entity
     {
         #region propiedades
@@ -13,6 +22,12 @@ namespace MonoGame
         protected float posX;
         protected float posY;
         protected Rectangle sourceRect;
+        protected Type type;
+
+        public Type Type
+        {
+            get { return type; }
+        }
         public Texture2D TEXTURE
         {
             get {  return Texture; }
@@ -44,6 +59,25 @@ namespace MonoGame
             this.posY = posY;
             this.size = size;
             sourceRect = new Rectangle(0, 0, (int)size.X / dividendo, (int)size.Y / dividendo);
+            string typeOfImage = imageName.Split('.')[0];
+            switch (typeOfImage)
+            {
+                case "h":
+                    type = Type.Grass;
+                    break;
+                case "c":
+                    type = Type.House;
+                    break;
+                case "a":
+                    type = Type.Arena;
+                    break;
+                case "w":
+                    type = Type.Watter;
+                    break;
+                case "b":
+                    type = Type.Bush;
+                    break;
+            }
         }
         public void Draw(SpriteBatch _spriteBatch) //dibuja la imagen recortada por el sprite que quiero.
         {
