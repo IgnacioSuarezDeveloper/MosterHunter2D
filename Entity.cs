@@ -17,33 +17,33 @@ namespace MonoGame
     internal class Entity
     {
         #region propiedades
-        protected Texture2D Texture;
-        protected Vector2 size;
-        protected float posX;
-        protected float posY;
-        protected Rectangle sourceRect;
-        protected Type type;
+            protected Texture2D Texture;
+            protected Vector2 size;
+            protected float posX;
+            protected float posY;
+            protected Rectangle sourceRect;
+            protected Type type;
 
-        public Type Type
+            public Type Type
         {
             get { return type; }
         }
-        public Texture2D TEXTURE
+            public Texture2D TEXTURE
         {
             get {  return Texture; }
             set { Texture = value; }
         }
-        public Vector2 SIZE
+            public Vector2 SIZE
         {
             get { return size; }
             set { size = value; }
         }
-        public float Posx
+            public float Posx
         {
             get { return posX; }
             set { posX = value; }
         }
-        public float Posy
+            public float Posy
         {
             get { return posY; }
             set { posY = value; }
@@ -51,8 +51,7 @@ namespace MonoGame
         #endregion
 
         #region metodos
-
-        public Entity(ContentManager content, string imageName, int posX, int posY, Vector2 size, int dividendo) 
+            public Entity(ContentManager content, string imageName, int posX, int posY, Vector2 size, int dividendo) 
         {
             this.Texture = content.Load<Texture2D>(imageName);
             this.posX = posX;
@@ -78,8 +77,8 @@ namespace MonoGame
                     type = Type.Bush;
                     break;
             }
-        }
-        public void Draw(SpriteBatch _spriteBatch) //dibuja la imagen recortada por el sprite que quiero.
+        }//Entity();
+            public void Draw(SpriteBatch _spriteBatch) //dibuja la imagen recortada por el sprite que quiero.
         {
             _spriteBatch.Draw(Texture, new Rectangle((int)this.posX, (int)this.posY, (int)size.X, (int)size.Y), Color.White); // Pintar imagen
         }//Renderer();

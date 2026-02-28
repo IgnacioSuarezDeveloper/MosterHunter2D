@@ -9,23 +9,22 @@ namespace MonoGame
     public class Game1 : Game
     {
         #region propiedades
-        private  static int fps = 120;
-        private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
-        private MainCharacter Player;
-        private Task animation;
-        private Texture2D fondo;
-        private Texture2D pixel;
-        
+            private  static int fps = 120;                  
+            private GraphicsDeviceManager _graphics;        
+            private SpriteBatch _spriteBatch;
+            private MainCharacter Player;
+            private Task animation;
+            private Texture2D fondo;                        
+            private Texture2D pixel;
 
-        public static int FPS
+            public static int FPS
         {
             get { return fps; }
         }
         #endregion
 
         #region metodos
-        public Game1() //constructor
+            public Game1()                                  //constructor
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -35,21 +34,19 @@ namespace MonoGame
             
                 
         }//Game1();
-        protected override void Initialize() //inicializacion de objetos propiedades.
+            protected override void Initialize()            //inicializacion de objetos propiedades.
         {
             
-            Player = new MainCharacter(Content, "PersonajeCaminaRecto", GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width/2 - 50, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height/2,new Vector2(100,100),2); //Creando Objeto MainCharacter.
+            Player = new MainCharacter(Content, "PersonajeCaminaVertical", GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width/2 - 50, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height/2,new Vector2(100,100),2); //Creando Objeto MainCharacter.
             animation = Task.Run(Player.Animation);
             string file = Map.FileTo1DArray("map.txt");
             Map.StringTo2DArray(file);
             Map.MapEntities(Content);
             //Map.EntitysTexture2DLoad();
             base.Initialize(); //utilizando Initialize de Game.
-            
-
-        }
         
-        protected override void LoadContent()//Cargando el contenido.
+        }//Initialize();
+            protected override void LoadContent()           //Cargando el contenido.
         {
            
             Menu.Load(Content, "PlayButton"); //cargando la imagen del menu
@@ -59,22 +56,22 @@ namespace MonoGame
             pixel = new Texture2D(GraphicsDevice, 1, 1);
             pixel.SetData(new[] { Color.White });
 
-        }
-
-        protected override void Update(GameTime gameTime)//bulce principal.
+        }//LoadContent();
+            protected override void Update(GameTime gameTime)//bulce principal.
         {
-            KeyBoardDetection.keys(_graphics); //objeto para detectar las teclas pulsadas.
+            KeyBoardDetection.keys(_graphics);          //objeto para detectar las teclas pulsadas.
             Menu.Update(); //update del menu.
             if (!Menu.active) {
-                Map.Movement();
-                Player.Movement(); //movimiento del personaje principal.
                 
+                Player.Movement();                      //movimiento del personaje principal.
+                Map.Movement(Player);                   //movimiento del mapa.
+                Colides.PlayerColidHouses(Player);      //colision de jugador con las casas.
+             
             }
             ;
             base.Update(gameTime);
-        }
-
-        protected override void Draw(GameTime gameTime)  //bucle donde dibujar Imagenes.
+        }//Update();
+            protected override void Draw(GameTime gameTime)  //bucle donde dibujar Imagenes.
         {
 
             GraphicsDevice.Clear(Color.Green); // Fondo

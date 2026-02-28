@@ -45,7 +45,10 @@
     <None Update="Content\PersonajeCaminaDiagonal.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Content\PersonajeCaminaRecto.png">
+    <None Update="Content\PersonajeCaminaHorizontal.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\PersonajeCaminaVertical.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Content\PlayButton.png">
