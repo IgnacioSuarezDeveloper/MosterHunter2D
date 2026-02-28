@@ -415,8 +415,7 @@ namespace MonoGame
         }//dibuaj todos los sprites.
             public static void Movement(MainCharacter Player) //Movimiento del mapa en funcion de la tecla presionada.
         {
-            int distanceHousePlayer = int.Parse(Colides.PlayerColidHouses(Player).Split(",")[1]);
-            int distanceColision = int.Parse(Colides.PlayerColidHouses(Player).Split(",")[2]);
+            
             int futurePosy;
 
             
@@ -426,8 +425,9 @@ namespace MonoGame
                 {
                     if(KeyBoardDetection.W)
                     {
-                        //tocara hacer una funcion nueva donde poder calcular la distancia y la distancia futura.
-                           futurePosy =  (int)EntitysTexture2D[i, x].Posy + mapSpeed;
+                            //tocara hacer una funcion nueva donde poder calcular la distancia y la distancia futura.
+                            futurePosy =  (int)(Player.Posy - mapSpeed);
+                            string txt =  Colides.PlayerColidHouses(Player, futurePosy,(int)Player.Posx);
                             EntitysTexture2D[i, x].Posy += mapSpeed;
                     }
                     if (KeyBoardDetection.S) { 

@@ -34,9 +34,9 @@ namespace MonoGame
             }
             return inside;
         }//PlayerEnteringBush();
-            public static string PlayerColidHouses(MainCharacter Player) //comprueba la distancia de colision con las casas y la devuelve.
+            public static string PlayerColidHouses(MainCharacter Player, int futurePlayerPosy, int futurePlayerPosx) //comprueba la distancia de colision con las casas y la devuelve.
         {
-            string colidingDistance = "false,10000000,1000000";
+            string colidingDistance = "0,10000000,1000000";
            
             foreach ( Vector2 housesIndex in Map.HOUSES ) //comprobando la distancia con las casas.
             {
@@ -55,7 +55,10 @@ namespace MonoGame
                 int playery = (int)Player.Posy;
 
                 int playerWidth = (int)Player.SIZE.X;
-                int playerHeight = (int)Player.SIZE.Y;  
+                int playerHeight = (int)Player.SIZE.Y;
+
+                int auxfpx =  futurePlayerPosx + playerWidth;
+                int auxfpy = futurePlayerPosy + playerHeight;  
 
                 playerx += playerWidth / 2;
                 playery += playerHeight / 2;
@@ -63,11 +66,15 @@ namespace MonoGame
                 int deltaX = Math.Abs(playerx - housex);
                 int deltaY = Math.Abs(playery - housey);
 
+                int futureDeltaY = Math.Abs(auxfpy - housey);
+                int futureDeltaX = Math.Abs(auxfpx - housex);
+
                 int distance = (int)Math.Sqrt(deltaY * deltaY + deltaX * deltaX);
+                int futureDistance = (int)Math.Sqrt(futureDeltaX * futureDeltaX + futureDeltaY + futureDeltaY);
                 int minimunDistance = housexSize / 2 - 90;
                 if (distance <= minimunDistance )
                 {
-                    colidingDistance = $"true,{distance},{minimunDistance}";
+                    colidingDistance = $"{distance},{futureDistance},{minimunDistance}";
                     break;
                 }
                 

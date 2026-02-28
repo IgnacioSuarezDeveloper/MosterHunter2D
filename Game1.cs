@@ -65,7 +65,6 @@ namespace MonoGame
                 
                 Player.Movement();                      //movimiento del personaje principal.
                 Map.Movement(Player);                   //movimiento del mapa.
-                Colides.PlayerColidHouses(Player);      //colision de jugador con las casas.
              
             }
             ;
