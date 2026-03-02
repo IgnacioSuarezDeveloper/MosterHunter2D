@@ -8,9 +8,9 @@ namespace MonoGame
     internal static class KeyBoardDetection
     {
         #region propiedades
-            private static bool w;
+            public static bool w;
             public static bool a;
-            private static bool s;
+            public static bool s;
             public static bool d;
             private static bool escPress = false;
             private static bool escRelease = true;

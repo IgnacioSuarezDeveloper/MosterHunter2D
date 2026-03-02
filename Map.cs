@@ -415,9 +415,12 @@ namespace MonoGame
         }//dibuaj todos los sprites.
             public static void Movement(MainCharacter Player) //Movimiento del mapa en funcion de la tecla presionada.
         {
-            
+            int futurePosx;
             int futurePosy;
-
+            bool colidingBottom = false;
+            bool colidingUp = false;
+            bool colidingRight = false;
+            bool colidingLeft = false;
             
             for (int i = 0; i < row; ++i)
             {
@@ -425,16 +428,54 @@ namespace MonoGame
                 {
                     if(KeyBoardDetection.W)
                     {
-                            //tocara hacer una funcion nueva donde poder calcular la distancia y la distancia futura.
-                            futurePosy =  (int)(Player.Posy - mapSpeed);
-                            string txt =  Colides.PlayerColidHouses(Player, futurePosy,(int)Player.Posx);
-                            EntitysTexture2D[i, x].Posy += mapSpeed;
+                        futurePosy = (int)Player.Posy - mapSpeed;
+                        string txt = Colides.PlayerColidHouses(Player, futurePosy, (int)Player.Posx);
+                        int distance = int.Parse(txt.Split(",")[0]);
+                        int futureDistance = int.Parse(txt.Split(",")[1]);
+                        if (distance < futureDistance &&   !colidingRight && !colidingLeft) 
+                        {
+                            EntitysTexture2D[i, x].Posy += mapSpeed;   
+                            colidingBottom = false;
+                        }
+                        else 
+                        {
+                            colidingBottom = true;
+                        }
+                        
+                      
                     }
-                    if (KeyBoardDetection.S) { 
-                        EntitysTexture2D[i, x].Posy -= mapSpeed; 
+                    if (KeyBoardDetection.S) {
+                        futurePosy = (int)Player.Posy + mapSpeed;
+                        string txt = Colides.PlayerColidHouses(Player, futurePosy, (int)Player.Posx);
+                        int distance = int.Parse(txt.Split(",")[0]);
+                        int futureDistance = int.Parse(txt.Split(",")[1]);
+                        if (distance < futureDistance &&  !colidingRight && !colidingLeft)
+                        {
+                            EntitysTexture2D[i, x].Posy -= mapSpeed;
+                            colidingUp = false;
+                        }
+                        else
+                        {
+                            colidingUp = true;
+                        }
+
+                        
                     }
-                    if (KeyBoardDetection.D) { 
-                        EntitysTexture2D[i,x].Posx -= mapSpeed; 
+                    if (KeyBoardDetection.D) {
+                        futurePosx = (int)Player.Posx + mapSpeed;
+                        string txt = Colides.PlayerColidHouses(Player, (int)Player.Posy, futurePosx);
+                        int distance = int.Parse(txt.Split(",")[0]);
+                        int futureDistance = int.Parse(txt.Split(",")[1]);
+                        if (distance < futureDistance && !colidingUp && !colidingBottom)
+                        {
+                            EntitysTexture2D[i, x].Posx -= mapSpeed;
+                            colidingLeft = false;
+                        }
+                        else
+                        {
+                            colidingLeft = true;
+                        }
+                        
                     } 
                     if (KeyBoardDetection.A) { 
                         EntitysTexture2D[i, x].Posx += mapSpeed; 

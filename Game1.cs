@@ -65,7 +65,7 @@ namespace MonoGame
                 
                 Player.Movement();                      //movimiento del personaje principal.
                 Map.Movement(Player);                   //movimiento del mapa.
-             
+     
             }
             ;
             base.Update(gameTime);

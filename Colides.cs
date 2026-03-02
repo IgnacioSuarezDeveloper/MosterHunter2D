@@ -57,8 +57,8 @@ namespace MonoGame
                 int playerWidth = (int)Player.SIZE.X;
                 int playerHeight = (int)Player.SIZE.Y;
 
-                int auxfpx =  futurePlayerPosx + playerWidth;
-                int auxfpy = futurePlayerPosy + playerHeight;  
+                int auxfpx =  futurePlayerPosx + playerWidth / 2;
+                int auxfpy = futurePlayerPosy + playerHeight / 2;  
 
                 playerx += playerWidth / 2;
                 playery += playerHeight / 2;
@@ -70,13 +70,14 @@ namespace MonoGame
                 int futureDeltaX = Math.Abs(auxfpx - housex);
 
                 int distance = (int)Math.Sqrt(deltaY * deltaY + deltaX * deltaX);
-                int futureDistance = (int)Math.Sqrt(futureDeltaX * futureDeltaX + futureDeltaY + futureDeltaY);
+                int futureDistance = (int)Math.Sqrt(futureDeltaX * futureDeltaX + futureDeltaY * futureDeltaY);
                 int minimunDistance = housexSize / 2 - 90;
                 if (distance <= minimunDistance )
                 {
-                    colidingDistance = $"{distance},{futureDistance},{minimunDistance}";
+                    colidingDistance = $"{distance},{futureDistance},{minimunDistance},true";
                     break;
                 }
+
                 
             }
             return colidingDistance; 
