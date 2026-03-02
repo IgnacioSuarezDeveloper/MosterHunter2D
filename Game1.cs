@@ -16,6 +16,7 @@ namespace MonoGame
             private Task animation;
             private Texture2D fondo;                        
             private Texture2D pixel;
+            private Camera camera;
 
             public static int FPS
         {
@@ -38,6 +39,7 @@ namespace MonoGame
         {
             
             Player = new MainCharacter(Content, "PersonajeCaminaVertical", GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width/2 - 50, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height/2,new Vector2(100,100),2); //Creando Objeto MainCharacter.
+            camera = new Camera(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
             animation = Task.Run(Player.Animation);
             string file = Map.FileTo1DArray("map.txt");
             Map.StringTo2DArray(file);
@@ -58,23 +60,23 @@ namespace MonoGame
 
         }//LoadContent();
             protected override void Update(GameTime gameTime)//bulce principal.
-        {
+            {
             KeyBoardDetection.keys(_graphics);          //objeto para detectar las teclas pulsadas.
             Menu.Update(); //update del menu.
             if (!Menu.active) {
                 
                 Player.Movement();                      //movimiento del personaje principal.
-                Map.Movement(Player);                   //movimiento del mapa.
+                camera.Follow(new Vector2(Player.Posx, Player.Posy));
+               //Map.Movement(Player);
      
             }
-            ;
             base.Update(gameTime);
-        }//Update();
+            }//Update();
             protected override void Draw(GameTime gameTime)  //bucle donde dibujar Imagenes.
-        {
+            {
 
-            GraphicsDevice.Clear(Color.Green); // Fondo
-            _spriteBatch.Begin();
+                GraphicsDevice.Clear(Color.Green); // Fondo
+                _spriteBatch.Begin(transformMatrix: camera.Transform);
             if (!Menu.active) {
                 
                 Map.DrawBackground(Player, _spriteBatch);

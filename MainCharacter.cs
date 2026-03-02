@@ -12,7 +12,7 @@ namespace MonoGame
     internal class MainCharacter : Entity
     {
         #region properties
-            protected float speed = 4;
+            protected float speed = 3;
             protected Texture2D VerticalTexture;
             protected Texture2D HorizontalTexture;
 
@@ -36,19 +36,20 @@ namespace MonoGame
        {
             if (KeyBoardDetection.W)
             {
-               // this.posY -= this.speed;
+               
+               this.posY -= this.speed;
             }
             if (KeyBoardDetection.A)
             { 
-                //this.posX -= this.speed;
+                this.posX -= this.speed;
             }
             if (KeyBoardDetection.S)
             {
-                //this.posY += this.speed;
+                this.posY += this.speed;
             }
             if(KeyBoardDetection.D)
             {
-                //this.posX += this.speed;
+                this.posX += this.speed;
             }
         }//SetPosition()
             public void Draw(SpriteBatch _spriteBatch) //dibuja la imagen recortada por el sprite que quiero.

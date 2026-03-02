@@ -24,7 +24,10 @@ namespace MonoGame
             private static List<Vector2> Bushes = new List<Vector2>(); //lista de arbustos.
             private static List<Vector2> Houses = new List<Vector2>(); //lista de houses.
 
-            public static List<Vector2> BUSHES
+        public static int futurey = 0;
+        public static int futurex = 0;
+
+        public static List<Vector2> BUSHES
         {
             get
             {
@@ -314,179 +317,55 @@ namespace MonoGame
             }
 
         }//dibuja sprites de Casas.
-            public static void Draw(MainCharacter Player, SpriteBatch _spriteBatch, int width, int heigth)
-        {
-            for (int i = 0; i < row - 1; i++)
-            {
-                for (int x = 0; x < col - 2; x++)
-                {
-                    _spriteBatch.Draw(
-                            EntitysTexture2D[0, 0].TEXTURE,
-                            new Rectangle(
-                                ((int)EntitysTexture2D[0, 0].Posx + OfsetXstart + x * 100),
-                                ((int)EntitysTexture2D[0, 0].Posy + OfsetYstart + i * 100),
-                                (int)EntitysTexture2D[0, 0].SIZE.X,
-                                (int)EntitysTexture2D[0, 0].SIZE.Y
-                            ),
-                            Color.White
-                        );
-
-                    if (EntitysTexture2D[i, x].Posy > Player.Posy - heigth && EntitysTexture2D[i, x].Posy < Player.Posy + (int)Player.SIZE.Y + heigth &&EntitysTexture2D[i, x].Posx > Player.Posx - width &&EntitysTexture2D[i, x].Posx < Player.Posx + (int)Player.SIZE.X + width)
-                    {
-                        if (map2d[i, x] == "h" || map2d[i, x] == "a" || map2d[i,x] == "w")
-                        {
-                            _spriteBatch.Draw(
-                            EntitysTexture2D[i, x].TEXTURE,
-                            new Rectangle(
-                                ((int)EntitysTexture2D[i, x].Posx + OfsetXstart),
-                                ((int)EntitysTexture2D[i, x].Posy + OfsetYstart) ,
-                                (int)EntitysTexture2D[i, x].SIZE.X,
-                                (int)EntitysTexture2D[i, x].SIZE.Y
-                            ),
-                            Color.White
-                        );
-                        }
-
-                    }
-                }
-            }
-            for (int i = 0; i < row - 1; i++)
-            {
-                for (int x = 0; x < col - 2; x++)
-                {
-
-                    if (
-                        EntitysTexture2D[i, x].Posy > Player.Posy - heigth &&
-                        EntitysTexture2D[i, x].Posy < Player.Posy + (int)Player.SIZE.Y + heigth &&
-
-                        EntitysTexture2D[i, x].Posx > Player.Posx - width &&
-                        EntitysTexture2D[i, x].Posx < Player.Posx + (int)Player.SIZE.X + width
-                       )
-                    {
-                        if (map2d[i, x] == "c")
-                        {
-                            _spriteBatch.Draw(
-                            EntitysTexture2D[i, x].TEXTURE,
-                            new Rectangle(
-                                ((int)EntitysTexture2D[i, x].Posx + OfsetXstart) ,
-                                ((int)EntitysTexture2D[i, x].Posy + OfsetYstart) ,
-                                (int)EntitysTexture2D[i, x].SIZE.X,
-                                (int)EntitysTexture2D[i, x].SIZE.Y
-                            ),
-                            Color.White
-                        );
-                        }
-                            
-                    }
-                }
-            }
-
-            Player.Draw(_spriteBatch);
-            for (int i = 0; i < row - 1; i++)
-            {
-                for (int x = 0; x < col - 2; x++)
-                {
-
-                    if (
-                        EntitysTexture2D[i, x].Posy > Player.Posy - heigth &&
-                        EntitysTexture2D[i, x].Posy < Player.Posy + (int)Player.SIZE.Y + heigth &&
-
-                        EntitysTexture2D[i, x].Posx > Player.Posx - width &&
-                        EntitysTexture2D[i, x].Posx < Player.Posx + (int)Player.SIZE.X + width
-                       )
-                    {
-                        if (map2d[i, x] == "b")
-                        {
-                            _spriteBatch.Draw(
-                            EntitysTexture2D[i, x].TEXTURE,
-                            new Rectangle(
-                                ((int)EntitysTexture2D[i, x].Posx + OfsetXstart),
-                                ((int)EntitysTexture2D[i, x].Posy + OfsetYstart),
-                                (int)EntitysTexture2D[i, x].SIZE.X,
-                                (int)EntitysTexture2D[i, x].SIZE.Y
-                            ),
-                            Color.White
-                        );
-                        }
-
-                    }
-                }
-            }
-        }//dibuaj todos los sprites.
             public static void Movement(MainCharacter Player) //Movimiento del mapa en funcion de la tecla presionada.
         {
-            int futurePosx;
-            int futurePosy;
-            bool colidingBottom = false;
-            bool colidingUp = false;
-            bool colidingRight = false;
-            bool colidingLeft = false;
-            
+            bool initialized = false;
+
             for (int i = 0; i < row; ++i)
             {
                 for (int x = 0; x < col - 2; x++)
                 {
-                    if(KeyBoardDetection.W)
-                    {
-                        futurePosy = (int)Player.Posy - mapSpeed;
-                        string txt = Colides.PlayerColidHouses(Player, futurePosy, (int)Player.Posx);
-                        int distance = int.Parse(txt.Split(",")[0]);
-                        int futureDistance = int.Parse(txt.Split(",")[1]);
-                        if (distance < futureDistance &&   !colidingRight && !colidingLeft) 
-                        {
-                            EntitysTexture2D[i, x].Posy += mapSpeed;   
-                            colidingBottom = false;
-                        }
-                        else 
-                        {
-                            colidingBottom = true;
-                        }
-                        
-                      
-                    }
-                    if (KeyBoardDetection.S) {
-                        futurePosy = (int)Player.Posy + mapSpeed;
-                        string txt = Colides.PlayerColidHouses(Player, futurePosy, (int)Player.Posx);
-                        int distance = int.Parse(txt.Split(",")[0]);
-                        int futureDistance = int.Parse(txt.Split(",")[1]);
-                        if (distance < futureDistance &&  !colidingRight && !colidingLeft)
-                        {
-                            EntitysTexture2D[i, x].Posy -= mapSpeed;
-                            colidingUp = false;
-                        }
-                        else
-                        {
-                            colidingUp = true;
-                        }
+                    // Posición actual
+                    futurex = (int)EntitysTexture2D[i, x].Posx;
+                    futurey = (int)EntitysTexture2D[i, x].Posy;
 
-                        
+                    // Movimiento (sin diagonal)
+                    if (KeyBoardDetection.W)
+                    {
+                       
+                        futurey += mapSpeed;   // Subir
                     }
-                    if (KeyBoardDetection.D) {
-                        futurePosx = (int)Player.Posx + mapSpeed;
-                        string txt = Colides.PlayerColidHouses(Player, (int)Player.Posy, futurePosx);
-                        int distance = int.Parse(txt.Split(",")[0]);
-                        int futureDistance = int.Parse(txt.Split(",")[1]);
-                        if (distance < futureDistance && !colidingUp && !colidingBottom)
-                        {
-                            EntitysTexture2D[i, x].Posx -= mapSpeed;
-                            colidingLeft = false;
-                        }
-                        else
-                        {
-                            colidingLeft = true;
-                        }
-                        
-                    } 
-                    if (KeyBoardDetection.A) { 
-                        EntitysTexture2D[i, x].Posx += mapSpeed; 
+                     if (KeyBoardDetection.S)
+                    {
+                       
+                        futurey -= mapSpeed;   // Bajar
                     }
+                     if (KeyBoardDetection.D)
+                    {
+                       
+                        futurex -= mapSpeed;   // Derecha
+                    }
+                     if (KeyBoardDetection.A)
+                    {
+                       
+                        futurex += mapSpeed;   // Izquierda
+                    }
+
+                    // Aplicamos la nueva posición
+                    
+                        EntitysTexture2D[i, x].Posx = futurex;
+                        EntitysTexture2D[i, x].Posy = futurey;
+                    
+                    
+
 
                 }
             }
 
+            
+
         } //Movimiento del mapa.
         #endregion
-
     }//Map.
 }
     

@@ -34,13 +34,14 @@ namespace MonoGame
             }
             return inside;
         }//PlayerEnteringBush();
-            public static string PlayerColidHouses(MainCharacter Player, int futurePlayerPosy, int futurePlayerPosx) //comprueba la distancia de colision con las casas y la devuelve.
+            public static bool PlayerColidHouses(MainCharacter Player) //comprueba la distancia de colision con las casas y la devuelve.
         {
-            string colidingDistance = "0,10000000,1000000";
+            string colidingDistance = "";
            
             foreach ( Vector2 housesIndex in Map.HOUSES ) //comprobando la distancia con las casas.
             {
                 
+               
                 int housex = (int)Map.ENtitysTexture2D[(int)housesIndex.Y, (int)housesIndex.X].Posx + Map.OfsetXstart;
                 int housey = (int)Map.ENtitysTexture2D[(int)housesIndex.Y, (int)housesIndex.X].Posy + Map.OfsetYstart;
 
@@ -57,8 +58,8 @@ namespace MonoGame
                 int playerWidth = (int)Player.SIZE.X;
                 int playerHeight = (int)Player.SIZE.Y;
 
-                int auxfpx =  futurePlayerPosx + playerWidth / 2;
-                int auxfpy = futurePlayerPosy + playerHeight / 2;  
+                //int auxfpx =  futurePlayerPosx + playerWidth / 2;
+                //int auxfpy = futurePlayerPosy + playerHeight / 2;  
 
                 playerx += playerWidth / 2;
                 playery += playerHeight / 2;
@@ -66,22 +67,65 @@ namespace MonoGame
                 int deltaX = Math.Abs(playerx - housex);
                 int deltaY = Math.Abs(playery - housey);
 
-                int futureDeltaY = Math.Abs(auxfpy - housey);
-                int futureDeltaX = Math.Abs(auxfpx - housex);
+                //int futureDeltaY = Math.Abs(auxfpy - housey);
+                //int futureDeltaX = Math.Abs(auxfpx - housex);
 
                 int distance = (int)Math.Sqrt(deltaY * deltaY + deltaX * deltaX);
-                int futureDistance = (int)Math.Sqrt(futureDeltaX * futureDeltaX + futureDeltaY * futureDeltaY);
+                //int futureDistance = (int)Math.Sqrt(futureDeltaX * futureDeltaX + futureDeltaY * futureDeltaY);
                 int minimunDistance = housexSize / 2 - 90;
                 if (distance <= minimunDistance )
                 {
-                    colidingDistance = $"{distance},{futureDistance},{minimunDistance},true";
+                    return true;
                     break;
                 }
 
                 
             }
-            return colidingDistance; 
+                 return false; 
         }//PlayerColidingHouses();
+            public static bool PlayerFutureColidHouses(MainCharacter Player, int futurePosx, int futurePosy)
+         {
+            foreach (Vector2 housesIndex in Map.HOUSES) //comprobando la distancia con las casas.
+            {
+
+
+                int housex = (int)Map.ENtitysTexture2D[(int)housesIndex.Y, (int)housesIndex.X].Posx + Map.OfsetXstart ;
+                int housey = (int)Map.ENtitysTexture2D[(int)housesIndex.Y, (int)housesIndex.X].Posy + Map.OfsetYstart ;
+
+                int housexSize = (int)Map.ENtitysTexture2D[(int)housesIndex.Y, (int)housesIndex.X].SIZE.X;
+                int houseySize = (int)Map.ENtitysTexture2D[(int)housesIndex.Y, (int)housesIndex.X].SIZE.Y;
+
+                housex += housexSize / 2;
+                housey += houseySize / 2;
+
+
+                
+
+                int playerWidth = (int)Player.SIZE.X;
+                int playerHeight = (int)Player.SIZE.Y;
+
+                //int auxfpx =  futurePlayerPosx + playerWidth / 2;
+                //int auxfpy = futurePlayerPosy + playerHeight / 2;  
+
+                futurePosx += playerWidth / 2;
+                futurePosy += playerHeight / 2;
+
+                int deltaX = Math.Abs(futurePosx - housex);
+                int deltaY = Math.Abs(futurePosy - housey);
+                
+                int distance = (int)Math.Sqrt(deltaY * deltaY + deltaX * deltaX);
+                int minimunDistance = housexSize / 2 - 90;
+                if (distance <= minimunDistance)
+                {
+                    return true;
+                    break;
+                }
+
+
+
+            }
+            return false;
+        }
 
         #endregion methods
     }
