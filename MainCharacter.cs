@@ -34,22 +34,40 @@ namespace MonoGame
         }
             public  void Movement()//movimiento del muñeco en x y en y segun la tecla presionada.
        {
+            int futureposx = (int)this.posX;
+            int futureposy = (int)this.posY;
             if (KeyBoardDetection.W)
             {
-               
-               this.posY -= this.speed;
+                futureposy = (int)this.posY - (int)this.speed;
+               if(!Colides.PlayerFutureColidHouses(this,futureposx, futureposy))
+                {
+                    this.posY = futureposy;
+                }
             }
             if (KeyBoardDetection.A)
             { 
-                this.posX -= this.speed;
+                futureposx = (int)this.posX - (int)this.speed;  
+                if(!Colides.PlayerFutureColidHouses(this, futureposx, futureposy))
+                {
+                    this.posX = futureposx;
+                }
+               
             }
             if (KeyBoardDetection.S)
             {
-                this.posY += this.speed;
+                futureposy = (int)this.posY + (int)this.speed;
+                if (!Colides.PlayerFutureColidHouses(this, futureposx, futureposy))
+                {
+                    this.posY = futureposy;
+                }
             }
             if(KeyBoardDetection.D)
             {
-                this.posX += this.speed;
+                futureposx = (int)this.posX + (int)this.speed;
+                if (!Colides.PlayerFutureColidHouses(this, futureposx, futureposy))
+                {
+                    this.posX = futureposx;
+                }
             }
         }//SetPosition()
             public void Draw(SpriteBatch _spriteBatch) //dibuja la imagen recortada por el sprite que quiero.

@@ -67,6 +67,7 @@ namespace MonoGame
                 
                 Player.Movement();                      //movimiento del personaje principal.
                 camera.Follow(new Vector2(Player.Posx, Player.Posy));
+                Colides.PlayerColidHouses(Player);
                //Map.Movement(Player);
      
             }

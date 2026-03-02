@@ -75,6 +75,7 @@ namespace MonoGame
                 int minimunDistance = housexSize / 2 - 90;
                 if (distance <= minimunDistance )
                 {
+                    Debug.WriteLine(distance);
                     return true;
                     break;
                 }
@@ -83,7 +84,7 @@ namespace MonoGame
             }
                  return false; 
         }//PlayerColidingHouses();
-            public static bool PlayerFutureColidHouses(MainCharacter Player, int futurePosx, int futurePosy)
+            public static bool PlayerFutureColidHouses(MainCharacter Player, int futurePosx, int futurePosy)//comprueba la distancia futura de colision
          {
             foreach (Vector2 housesIndex in Map.HOUSES) //comprobando la distancia con las casas.
             {
@@ -120,12 +121,9 @@ namespace MonoGame
                     return true;
                     break;
                 }
-
-
-
             }
             return false;
-        }
+        }//PlayerFutureColidHouses();
 
         #endregion methods
     }
