@@ -1,8 +1,7 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System.Threading.Tasks;
 
 
 
@@ -12,46 +11,46 @@ namespace MonoGame
     internal class MainCharacter : Entity
     {
         #region properties
-            protected float speed = 3;
-            protected Texture2D VerticalTexture;
-            protected Texture2D HorizontalTexture;
+        protected float speed = 3;
+        protected Texture2D VerticalTexture;
+        protected Texture2D HorizontalTexture;
 
-            public float Speed 
+        public float Speed
         {
             get { return speed; }
         }//Speed;
         #endregion
 
         #region methods
-            public MainCharacter(ContentManager content, string imageName, int posX, int posY, Vector2 size, int dividendo) : base(content, imageName,posX,posY, size, dividendo) 
+        public MainCharacter(ContentManager content, string imageName, int posX, int posY, Vector2 size, int dividendo) : base(content, imageName, posX, posY, size, dividendo)
         {
             LoadAnimationImages("PersonajeCaminaVertical", "PersonajeCaminaHorizontal", content);
         }
-            public void LoadAnimationImages(string verticalSprite,string horizontalSprite, ContentManager content)
+        public void LoadAnimationImages(string verticalSprite, string horizontalSprite, ContentManager content)
         {
             VerticalTexture = content.Load<Texture2D>(verticalSprite);
             HorizontalTexture = content.Load<Texture2D>(horizontalSprite);
         }
-            public  void Movement()//movimiento del muñeco en x y en y segun la tecla presionada.
-       {
+        public void Movement()//movimiento del muñeco en x y en y segun la tecla presionada.
+        {
             int futureposx = (int)this.posX;
             int futureposy = (int)this.posY;
             if (KeyBoardDetection.W)
             {
                 futureposy = (int)this.posY - (int)this.speed;
-               if(!Colides.PlayerFutureColidHouses(this,futureposx, futureposy))
+                if (!Colides.PlayerFutureColidHouses(this, futureposx, futureposy))
                 {
                     this.posY = futureposy;
                 }
             }
             if (KeyBoardDetection.A)
-            { 
-                futureposx = (int)this.posX - (int)this.speed;  
-                if(!Colides.PlayerFutureColidHouses(this, futureposx, futureposy))
+            {
+                futureposx = (int)this.posX - (int)this.speed;
+                if (!Colides.PlayerFutureColidHouses(this, futureposx, futureposy))
                 {
                     this.posX = futureposx;
                 }
-               
+
             }
             if (KeyBoardDetection.S)
             {
@@ -61,7 +60,7 @@ namespace MonoGame
                     this.posY = futureposy;
                 }
             }
-            if(KeyBoardDetection.D)
+            if (KeyBoardDetection.D)
             {
                 futureposx = (int)this.posX + (int)this.speed;
                 if (!Colides.PlayerFutureColidHouses(this, futureposx, futureposy))
@@ -70,11 +69,11 @@ namespace MonoGame
                 }
             }
         }//SetPosition()
-            public void Draw(SpriteBatch _spriteBatch) //dibuja la imagen recortada por el sprite que quiero.
+        public void Draw(SpriteBatch _spriteBatch) //dibuja la imagen recortada por el sprite que quiero.
         {
-            _spriteBatch.Draw(Texture, new Rectangle((int)posX, (int)posY, (int)size.X, (int)size.Y),sourceRect,Color.White); // Pintar imagen
+            _spriteBatch.Draw(Texture, new Rectangle((int)posX, (int)posY, (int)size.X, (int)size.Y), sourceRect, Color.White); // Pintar imagen
         }//Renderer();
-            public async Task Animation() //character sprite animation. 
+        public async Task Animation() //character sprite animation. 
         {
             while (true)
             {
@@ -125,7 +124,7 @@ namespace MonoGame
                 {
                     TEXTURE = HorizontalTexture;
                     sourceRect.Y = 0;
-                    if (sourceRect.X < size.X / 2 -10)
+                    if (sourceRect.X < size.X / 2 - 10)
                     {
                         sourceRect.X = (int)size.X / 2 - 10;
                     }
@@ -136,7 +135,7 @@ namespace MonoGame
                 }
                 await Task.Delay(Game1.FPS);
             }
-            
+
         }//Animation();
         #endregion
     }

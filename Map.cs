@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 
 
@@ -12,17 +11,17 @@ namespace MonoGame
     internal static class Map
     {
         #region propiedades
-            private static string[] map;//array de una dimension con los caracteres.
-            private static string[,]map2d;//array de dos dimensiones con los caracteres.
-            private static int mapSpeed = 3; 
-            private static Entity[,] EntitysTexture2D;
-            private static int row; //filas de los arrays 2d
-            private static int col; //columnas de los arrays 2d
-            private static Vector2 size = new Vector2(1200,1200); //vector renderWidth alto ancho texturas.
-            public static int OfsetXstart = -200;
-            public static int OfsetYstart = -200;
-            private static List<Vector2> Bushes = new List<Vector2>(); //lista de arbustos.
-            private static List<Vector2> Houses = new List<Vector2>(); //lista de houses.
+        private static string[] map;//array de una dimension con los caracteres.
+        private static string[,] map2d;//array de dos dimensiones con los caracteres.
+        private static int mapSpeed = 3;
+        private static Entity[,] EntitysTexture2D;
+        private static int row; //filas de los arrays 2d
+        private static int col; //columnas de los arrays 2d
+        private static Vector2 size = new Vector2(1200, 1200); //vector renderWidth alto ancho texturas.
+        public static int OfsetXstart = -200;
+        public static int OfsetYstart = -200;
+        private static List<Vector2> Bushes = new List<Vector2>(); //lista de arbustos.
+        private static List<Vector2> Houses = new List<Vector2>(); //lista de houses.
 
         public static int futurey = 0;
         public static int futurex = 0;
@@ -34,101 +33,109 @@ namespace MonoGame
                 return Bushes;
             }
         }
-            public static List<Vector2> HOUSES
+        public static List<Vector2> HOUSES
         {
             get
             {
                 return Houses;
             }
         }
-            public static Vector2 Size
+        public static Vector2 Size
         {
-            get { return size; }    
+            get { return size; }
         }
-            public static Entity[,] ENtitysTexture2D
+        public static Entity[,] ENtitysTexture2D
         {
             get
             {
                 return EntitysTexture2D;
             }
         }
-            public static int Row
+        public static int Row
         {
             get { return row; }
         }
-            public static int Col
+        public static int Col
         {
             get { return col; }
-        } 
-            public static int OfsetXIndex { get; private set; }
-            public static int OfsetIndex { get; private set; }
-            public static int PlayerPosY { get; private set; }
-            public static int PlayerPosX { get; private set; }
-            public static int RightRenderX { get; private set; }
-            public static int LeftRenderX { get; private set; }
+        }
+        public static int OfsetXIndex { get; private set; }
+        public static int OfsetIndex { get; private set; }
+        public static int PlayerPosY { get; private set; }
+        public static int PlayerPosX { get; private set; }
+        public static int RightRenderX { get; private set; }
+        public static int LeftRenderX { get; private set; }
         #endregion
 
         #region metodos
-            public static string FileTo1DArray(string path)//Lee el fichero de texto y devuevle un string con los caracteres y comas.
+        public static string FileTo1DArray(string path)//Lee el fichero de texto y devuevle un string con los caracteres y comas.
         {
             bool initCol = false;
             string file = "";
-            using(StreamReader sr = new StreamReader(path))
+            using (StreamReader sr = new StreamReader(path))
             {
                 while (!sr.EndOfStream)
                 {
                     file += sr.ReadLine();
                     if (!initCol)
                     {
-                        col = (file.Split(',').Length );
+                        col = (file.Split(',').Length);
                         initCol = true;
                     }
                     ++row;
                 }
-                   
+
             }
             return file;
         }//FileToString1D();
-            public static void StringTo2DArray(string file) //Combierte el string con caracteres del mapa en un array de 1 dimension y otro de 2 dimensiones. 
+        public static void StringTo2DArray(string file) //Combierte el string con caracteres del mapa en un array de 1 dimension y otro de 2 dimensiones. 
         {
             map = file.Split(',');
-            map2d = new string[row,col];
+            map2d = new string[row, col];
             int indexX = 0;
             int indexY = 0;
-            foreach(string s in map)
+            foreach (string s in map)
             {
-                if(s != "h" && s != "c" && s != "a" && s != "w" && s != "b")
+                if (s != "h" && s != "c" && s != "a" && s != "w" && s != "b")
                 {
                     ++indexY;
-                    
+
                     indexX = 0;
                 }
                 else
                 {
 
-                    map2d[indexY,indexX] = s;
+                    map2d[indexY, indexX] = s;
                     ++indexX;
                 }
             }
-            
+
         }//StringTo2DArray();       
-            public static void MapEntities(ContentManager content) // Crea los objetos con la imagen correspondiente y la posicion correspondiente.
+        public static void MapEntities(ContentManager content) // Crea los objetos con la imagen correspondiente y la posicion correspondiente.
         {
 
-            EntitysTexture2D = new Entity[row,col];
-            
+            InitializeEntitiesArray();
+            EntitysFull(content);
+
+        }//MapEntities();
+        public static void InitializeEntitiesArray()
+        {
+            EntitysTexture2D = new Entity[row, col];
+        }
+        public static void  EntitysFull(ContentManager content)
+        {
             for (int i = 0; i < row; i++)
             {
-                for(int x = 0; x < col - 2; x++)
-                { 
-                  
-                    if(map2d[i, x] == "h")
+                for (int x = 0; x < col - 2; x++)
+                {
+
+                    if (map2d[i, x] == "h")
                     {
                         EntitysTexture2D[i, x] = new Entity(content, map2d[i, x] + ".png", (OfsetXstart + x * 100), (OfsetYstart + i * 100), new Vector2(100, 100), 1);
                     }
-                    else if (map2d[i,x] == "c")
+                    else if (map2d[i, x] == "c")
                     {
-                        EntitysTexture2D[i, x] = new Entity(content, map2d[i, x] + ".png", (OfsetXstart - 300 + x * 100), (OfsetYstart  - 300 + i * 100), new Vector2(600, 600), 1);
+                        EntitysTexture2D[i, x] = new Entity(content, map2d[i, x] + ".png", (OfsetXstart - 300 + x * 100), (OfsetYstart - 300 + i * 100), new Vector2(600, 600), 1);
                         Houses.Add(new Vector2(x, i));
                     }
                     else if (map2d[i, x] == "a")
@@ -147,9 +154,8 @@ namespace MonoGame
                     }
                 }
             }
-
-        }//MapEntities();
-            public static void DrawBackground(MainCharacter Player, SpriteBatch _spriteBatch)
+        }
+        public static void DrawBackground(MainCharacter Player, SpriteBatch _spriteBatch)
         {
             for (int i = 0; i < row - 1; i++)
             {
@@ -167,8 +173,8 @@ namespace MonoGame
                         );
                 }
             }
-         } //dibuja el fondo de hierba.
-            public static void DrawGrassSprites(MainCharacter Player, SpriteBatch _spriteBatch, int width, int heigth)
+        } //dibuja el fondo de hierba.
+        public static void DrawGrassSprites(MainCharacter Player, SpriteBatch _spriteBatch, int width, int heigth)
         {
             for (int i = 0; i < row - 1; i++)
             {
@@ -195,7 +201,7 @@ namespace MonoGame
                 }
             }
         }//dibuja sprites de hierba.
-            public static void DrawArenaSprites(MainCharacter Player, SpriteBatch _spriteBatch, int width, int heigth)
+        public static void DrawArenaSprites(MainCharacter Player, SpriteBatch _spriteBatch, int width, int heigth)
         {
             for (int i = 0; i < row - 1; i++)
             {
@@ -222,7 +228,7 @@ namespace MonoGame
                 }
             }
         }// dibuja sprites de Arena.
-            public static void DrawWaterSprites(MainCharacter Player, SpriteBatch _spriteBatch, int width, int heigth)
+        public static void DrawWaterSprites(MainCharacter Player, SpriteBatch _spriteBatch, int width, int heigth)
         {
             for (int i = 0; i < row - 1; i++)
             {
@@ -249,7 +255,7 @@ namespace MonoGame
                 }
             }
         }//dibuja sprites de Agua.
-            public static void DrawBushSprites(MainCharacter Player, SpriteBatch _spriteBatch, int width, int heigth)
+        public static void DrawBushSprites(MainCharacter Player, SpriteBatch _spriteBatch, int width, int heigth)
         {
             for (int i = 0; i < row - 1; i++)
             {
@@ -283,7 +289,7 @@ namespace MonoGame
                 }
             }
         }//dibuja sprites de arbustos.
-            public static void DrawHouseSprites(MainCharacter Player, SpriteBatch _spriteBatch, int width, int heigth)
+        public static void DrawHouseSprites(MainCharacter Player, SpriteBatch _spriteBatch, int width, int heigth)
         {
             for (int i = 0; i < row - 1; i++)
             {
@@ -317,7 +323,7 @@ namespace MonoGame
             }
 
         }//dibuja sprites de Casas.
-            public static void Movement(MainCharacter Player) //Movimiento del mapa en funcion de la tecla presionada.
+        public static void Movement(MainCharacter Player) //Movimiento del mapa en funcion de la tecla presionada.
         {
             bool initialized = false;
 
@@ -332,40 +338,39 @@ namespace MonoGame
                     // Movimiento (sin diagonal)
                     if (KeyBoardDetection.W)
                     {
-                       
+
                         futurey += mapSpeed;   // Subir
                     }
-                     if (KeyBoardDetection.S)
+                    if (KeyBoardDetection.S)
                     {
-                       
+
                         futurey -= mapSpeed;   // Bajar
                     }
-                     if (KeyBoardDetection.D)
+                    if (KeyBoardDetection.D)
                     {
-                       
+
                         futurex -= mapSpeed;   // Derecha
                     }
-                     if (KeyBoardDetection.A)
+                    if (KeyBoardDetection.A)
                     {
-                       
+
                         futurex += mapSpeed;   // Izquierda
                     }
 
                     // Aplicamos la nueva posición
-                    
-                        EntitysTexture2D[i, x].Posx = futurex;
-                        EntitysTexture2D[i, x].Posy = futurey;
-                    
-                    
+
+                    EntitysTexture2D[i, x].Posx = futurex;
+                    EntitysTexture2D[i, x].Posy = futurey;
+
+
 
 
                 }
             }
 
-            
+
 
         } //Movimiento del mapa.
         #endregion
     }//Map.
 }
-    

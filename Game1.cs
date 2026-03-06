@@ -9,36 +9,41 @@ namespace MonoGame
     public class Game1 : Game
     {
         #region propiedades
-            private  static int fps = 120;                  
-            private GraphicsDeviceManager _graphics;        
-            private SpriteBatch _spriteBatch;
-            private MainCharacter Player;
-            private Task animation;
-            private Texture2D fondo;                        
-            private Texture2D pixel;
-            private Camera camera;
+        private static int fps = 120;
+        private GraphicsDeviceManager _graphics;
+        private SpriteBatch _spriteBatch;
+        private MainCharacter Player;
+        private Task animation;
+        private Texture2D fondo;
+        private Texture2D pixel;
+        private Camera camera;
 
-            public static int FPS
+        public static int FPS
         {
             get { return fps; }
         }
         #endregion
 
         #region metodos
-            public Game1()                                  //constructor
+        public Game1()                                  //constructor
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-            
-                
+
+
         }//Game1();
-            protected override void Initialize()            //inicializacion de objetos propiedades.
+        protected override void Initialize() //inicializacion de objetos propiedades.
         {
-            
-            Player = new MainCharacter(Content, "PersonajeCaminaVertical", GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width/2 - 50, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height/2,new Vector2(100,100),2); //Creando Objeto MainCharacter.
+
+            InitializingGame();
+
+        }//Initialize();
+        private void InitializingGame()
+        {
+            Player = new MainCharacter(Content, "PersonajeCaminaVertical", GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2 - 50, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2, new Vector2(100, 100), 2); //Creando Objeto MainCharacter.
             camera = new Camera(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
             animation = Task.Run(Player.Animation);
             string file = Map.FileTo1DArray("map.txt");
@@ -46,40 +51,53 @@ namespace MonoGame
             Map.MapEntities(Content);
             //Map.EntitysTexture2DLoad();
             base.Initialize(); //utilizando Initialize de Game.
-        
-        }//Initialize();
-            protected override void LoadContent()           //Cargando el contenido.
+        }
+        protected override void LoadContent()//Cargando el contenido.
         {
-           
-            Menu.Load(Content, "PlayButton"); //cargando la imagen del menu
 
+            Menu.Load(Content, "PlayButton"); //cargando la imagen del menu
             _spriteBatch = new SpriteBatch(GraphicsDevice); //cargando el spritebatch
             fondo = Content.Load<Texture2D>("h");
             pixel = new Texture2D(GraphicsDevice, 1, 1);
             pixel.SetData(new[] { Color.White });
 
         }//LoadContent();
-            protected override void Update(GameTime gameTime)//bulce principal.
-            {
-            KeyBoardDetection.keys(_graphics);          //objeto para detectar las teclas pulsadas.
+        protected override void Update(GameTime gameTime) //bulce principal.
+        {
+            KeyBoardDetection.keys(_graphics); //objeto para detectar las teclas pulsadas.
             Menu.Update(); //update del menu.
-            if (!Menu.active) {
-                
-                Player.Movement();                      //movimiento del personaje principal.
-                camera.Follow(new Vector2(Player.Posx, Player.Posy));
-                Colides.PlayerColidHouses(Player);
-               //Map.Movement(Player);
-     
-            }
+            CameraFollowPlayer();
             base.Update(gameTime);
-            }//Update();
-            protected override void Draw(GameTime gameTime)  //bucle donde dibujar Imagenes.
+        }//Update();
+        private void CameraFollowPlayer()
+        {
+            if (!Menu.active)
             {
 
-                GraphicsDevice.Clear(Color.Green); // Fondo
-                _spriteBatch.Begin(transformMatrix: camera.Transform);
-            if (!Menu.active) {
-                
+                Player.Movement();
+                camera.Follow(new Vector2(Player.Posx, Player.Posy));
+
+
+            }
+        }
+        protected override void Draw(GameTime gameTime)  //bucle donde dibujar Imagenes.
+        {
+
+             GraphicsDevice.Clear(Color.Green); // Fondo
+            _spriteBatch.Begin(transformMatrix: camera.Transform); 
+            
+            DrawEntitiesOrdered();
+            RedRectangleArroundPlayer();
+            DrawMenu();
+            
+            _spriteBatch.End();
+            base.Draw(gameTime);
+        }//Renderer();
+        private void DrawEntitiesOrdered()
+        {
+            if (!Menu.active)
+            {
+
                 Map.DrawBackground(Player, _spriteBatch);
 
                 Map.DrawArenaSprites(Player, _spriteBatch, (int)Map.Size.X, (int)Map.Size.X);
@@ -97,11 +115,13 @@ namespace MonoGame
                     Map.DrawBushSprites(Player, _spriteBatch, (int)Map.Size.X, (int)Map.Size.Y);
                     Player.Draw(_spriteBatch);
                 }
-                
 
-                
-                } 
 
+
+            }
+        }
+        private void RedRectangleArroundPlayer()
+        {
             //rectangulo rojo alrededor de player START.
             Rectangle rect = new Rectangle
                 (
@@ -109,7 +129,7 @@ namespace MonoGame
                    (int)Player.Posy,
                    (int)Player.SIZE.X,
                    (int)Player.SIZE.Y
-                   
+
                 );
             int grosor = 3;
             { // Línea superior
@@ -126,13 +146,13 @@ namespace MonoGame
             }
             //rectangulo rojo alrededor de player END.
             //rectangulo rojo alrededor de player START.
-          
-            //rectangulo rojo alrededor de player END.
 
+            //rectangulo rojo alrededor de player END.
+        }
+        private void DrawMenu()//dibujar menu
+        {
             if (Menu.active) { Menu.Draw(_spriteBatch); } //dibujando el meno.
-            _spriteBatch.End();
-            base.Draw(gameTime);
-        }//Renderer();
+        }
         #endregion
     }
 }

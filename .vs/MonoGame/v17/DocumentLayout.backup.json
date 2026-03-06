@@ -1,0 +1,156 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\nache\\OneDrive\\Escritorio\\MosterHunter\\MosterHunter2D\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E1CC65E8-60B8-713A-3BE9-24FE646BC6A7}|MonoGame.csproj|c:\\users\\nache\\onedrive\\escritorio\\mosterhunter\\mosterhunter2d\\map.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1CC65E8-60B8-713A-3BE9-24FE646BC6A7}|MonoGame.csproj|solutionrelative:map.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1CC65E8-60B8-713A-3BE9-24FE646BC6A7}|MonoGame.csproj|c:\\users\\nache\\onedrive\\escritorio\\mosterhunter\\mosterhunter2d\\game1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1CC65E8-60B8-713A-3BE9-24FE646BC6A7}|MonoGame.csproj|solutionrelative:game1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1CC65E8-60B8-713A-3BE9-24FE646BC6A7}|MonoGame.csproj|c:\\users\\nache\\onedrive\\escritorio\\mosterhunter\\mosterhunter2d\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1CC65E8-60B8-713A-3BE9-24FE646BC6A7}|MonoGame.csproj|solutionrelative:menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1CC65E8-60B8-713A-3BE9-24FE646BC6A7}|MonoGame.csproj|c:\\users\\nache\\onedrive\\escritorio\\mosterhunter\\mosterhunter2d\\colides.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1CC65E8-60B8-713A-3BE9-24FE646BC6A7}|MonoGame.csproj|solutionrelative:colides.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1CC65E8-60B8-713A-3BE9-24FE646BC6A7}|MonoGame.csproj|c:\\users\\nache\\onedrive\\escritorio\\mosterhunter\\mosterhunter2d\\maincharacter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1CC65E8-60B8-713A-3BE9-24FE646BC6A7}|MonoGame.csproj|solutionrelative:maincharacter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1CC65E8-60B8-713A-3BE9-24FE646BC6A7}|MonoGame.csproj|c:\\users\\nache\\onedrive\\escritorio\\mosterhunter\\mosterhunter2d\\entity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1CC65E8-60B8-713A-3BE9-24FE646BC6A7}|MonoGame.csproj|solutionrelative:entity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1CC65E8-60B8-713A-3BE9-24FE646BC6A7}|MonoGame.csproj|c:\\users\\nache\\onedrive\\escritorio\\mosterhunter\\mosterhunter2d\\keyboarddetection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1CC65E8-60B8-713A-3BE9-24FE646BC6A7}|MonoGame.csproj|solutionrelative:keyboarddetection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1CC65E8-60B8-713A-3BE9-24FE646BC6A7}|MonoGame.csproj|c:\\users\\nache\\onedrive\\escritorio\\mosterhunter\\mosterhunter2d\\camera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1CC65E8-60B8-713A-3BE9-24FE646BC6A7}|MonoGame.csproj|solutionrelative:camera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "KeyBoardDetection.cs",
+              "DocumentMoniker": "C:\\Users\\nache\\OneDrive\\Escritorio\\MosterHunter\\MosterHunter2D\\KeyBoardDetection.cs",
+              "RelativeDocumentMoniker": "KeyBoardDetection.cs",
+              "ToolTip": "C:\\Users\\nache\\OneDrive\\Escritorio\\MosterHunter\\MosterHunter2D\\KeyBoardDetection.cs",
+              "RelativeToolTip": "KeyBoardDetection.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T18:42:31.15Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Entity.cs",
+              "DocumentMoniker": "C:\\Users\\nache\\OneDrive\\Escritorio\\MosterHunter\\MosterHunter2D\\Entity.cs",
+              "RelativeDocumentMoniker": "Entity.cs",
+              "ToolTip": "C:\\Users\\nache\\OneDrive\\Escritorio\\MosterHunter\\MosterHunter2D\\Entity.cs",
+              "RelativeToolTip": "Entity.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAqwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T18:42:21.911Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Camera.cs",
+              "DocumentMoniker": "C:\\Users\\nache\\OneDrive\\Escritorio\\MosterHunter\\MosterHunter2D\\Camera.cs",
+              "RelativeDocumentMoniker": "Camera.cs",
+              "ToolTip": "C:\\Users\\nache\\OneDrive\\Escritorio\\MosterHunter\\MosterHunter2D\\Camera.cs",
+              "RelativeToolTip": "Camera.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAA1wAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T18:37:42.079Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Colides.cs",
+              "DocumentMoniker": "C:\\Users\\nache\\OneDrive\\Escritorio\\MosterHunter\\MosterHunter2D\\Colides.cs",
+              "RelativeDocumentMoniker": "Colides.cs",
+              "ToolTip": "C:\\Users\\nache\\OneDrive\\Escritorio\\MosterHunter\\MosterHunter2D\\Colides.cs",
+              "RelativeToolTip": "Colides.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAAYwAkAAABlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T18:37:40.744Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Game1.cs",
+              "DocumentMoniker": "C:\\Users\\nache\\OneDrive\\Escritorio\\MosterHunter\\MosterHunter2D\\Game1.cs",
+              "RelativeDocumentMoniker": "Game1.cs",
+              "ToolTip": "C:\\Users\\nache\\OneDrive\\Escritorio\\MosterHunter\\MosterHunter2D\\Game1.cs",
+              "RelativeToolTip": "Game1.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAYwJYAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T18:37:39.221Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Menu.cs",
+              "DocumentMoniker": "C:\\Users\\nache\\OneDrive\\Escritorio\\MosterHunter\\MosterHunter2D\\Menu.cs",
+              "RelativeDocumentMoniker": "Menu.cs",
+              "ToolTip": "C:\\Users\\nache\\OneDrive\\Escritorio\\MosterHunter\\MosterHunter2D\\Menu.cs",
+              "RelativeToolTip": "Menu.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T18:42:40.599Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MainCharacter.cs",
+              "DocumentMoniker": "C:\\Users\\nache\\OneDrive\\Escritorio\\MosterHunter\\MosterHunter2D\\MainCharacter.cs",
+              "RelativeDocumentMoniker": "MainCharacter.cs",
+              "ToolTip": "C:\\Users\\nache\\OneDrive\\Escritorio\\MosterHunter\\MosterHunter2D\\MainCharacter.cs",
+              "RelativeToolTip": "MainCharacter.cs",
+              "ViewState": "AgIAAGEAAAAAAAAAAAAswAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T18:37:35.714Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Map.cs",
+              "DocumentMoniker": "C:\\Users\\nache\\OneDrive\\Escritorio\\MosterHunter\\MosterHunter2D\\Map.cs",
+              "RelativeDocumentMoniker": "Map.cs",
+              "ToolTip": "C:\\Users\\nache\\OneDrive\\Escritorio\\MosterHunter\\MosterHunter2D\\Map.cs",
+              "RelativeToolTip": "Map.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAYwEUBAAByAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T18:37:26.983Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
