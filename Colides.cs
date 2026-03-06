@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Diagnostics;
+using System.Numerics;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace MonoGame
 {
@@ -29,7 +31,6 @@ namespace MonoGame
         }//PlayerEnteringBush();
         public static bool PlayerColidHouses(MainCharacter Player) //comprueba la distancia de colision con las casas y la devuelve.
         {
-            string colidingDistance = "";
 
             foreach (Vector2 housesIndex in Map.HOUSES) //comprobando la distancia con las casas.
             {
@@ -70,7 +71,7 @@ namespace MonoGame
                 {
                     Debug.WriteLine(distance);
                     return true;
-                    break;
+                    
                 }
 
 
@@ -112,12 +113,56 @@ namespace MonoGame
                 if (distance <= minimunDistance)
                 {
                     return true;
-                    break;
                 }
             }
             return false;
         }//PlayerFutureColidHouses();
+        public static bool PlayerColideObjects(MainCharacter Player)
+        {
+            foreach (Object objeto in Object.Objetos) //comprobando la distancia con las casas.
+            {
 
+
+                int objetox = (int)objeto.Posx;
+                int objetoy = (int)objeto.Posy;
+
+                int objetosizex = (int)objeto.SIZE.X;
+                int objetosizey = (int)objeto.SIZE.Y;
+
+                objetox += objetosizex / 2;
+                objetoy += objetosizey / 2;
+
+
+                int playerx = (int)Player.Posx;
+                int playery = (int)Player.Posy;
+
+                int playerWidth = (int)Player.SIZE.X;
+                int playerHeight = (int)Player.SIZE.Y;
+
+                //int auxfpx =  futurePlayerPosx + playerWidth / 2;
+                //int auxfpy = futurePlayerPosy + playerHeight / 2;  
+
+                playerx += playerWidth / 2;
+                playery += playerHeight / 2;
+
+                int deltaX = Math.Abs(playerx - objetox);
+                int deltaY = Math.Abs(playery - objetoy);
+
+                //int futureDeltaY = Math.Abs(auxfpy - housey);
+                //int futureDeltaX = Math.Abs(auxfpx - housex);
+
+                int distance = (int)Math.Sqrt(deltaY * deltaY + deltaX * deltaX);
+                //int futureDistance = (int)Math.Sqrt(futureDeltaX * futureDeltaX + futureDeltaY * futureDeltaY);
+                int minimunDistance = objetosizex / 2 - 20;
+                if (distance <= minimunDistance)
+                {
+                    Debug.WriteLine(distance);
+                    return true;
+                }
+                
+            }
+            return false;
+        }
         #endregion methods
     }
 }

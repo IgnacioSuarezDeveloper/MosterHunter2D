@@ -13,6 +13,7 @@ namespace MonoGame
         Watter,
         Bush,
         Arena,
+        Rock,
     }
     internal class Entity
     {
@@ -27,6 +28,7 @@ namespace MonoGame
         public Type Type
         {
             get { return type; }
+            set { type = value; }
         }
         public Texture2D TEXTURE
         {

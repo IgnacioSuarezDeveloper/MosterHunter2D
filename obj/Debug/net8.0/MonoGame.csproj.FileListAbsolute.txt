@@ -90,3 +90,4 @@ C:\Users\nache\OneDrive\Escritorio\MosterHunter\MosterHunter2D\obj\Debug\net8.0\
 C:\Users\nache\OneDrive\Escritorio\MosterHunter\MosterHunter2D\obj\Debug\net8.0\MonoGame.pdb
 C:\Users\nache\OneDrive\Escritorio\MosterHunter\MosterHunter2D\obj\Debug\net8.0\MonoGame.genruntimeconfig.cache
 C:\Users\nache\OneDrive\Escritorio\MosterHunter\MosterHunter2D\obj\Debug\net8.0\ref\MonoGame.dll
+C:\Users\nache\OneDrive\Escritorio\MosterHunter\MosterHunter2D\bin\Debug\net8.0\Content\r.png

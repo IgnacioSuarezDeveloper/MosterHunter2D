@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
@@ -17,6 +17,7 @@ namespace MonoGame
         private Texture2D fondo;
         private Texture2D pixel;
         private Camera camera;
+
 
         public static int FPS
         {
@@ -39,6 +40,12 @@ namespace MonoGame
         {
 
             InitializingGame();
+            Object.CreateObjects(Object.Objetos,Content);
+
+
+
+
+
 
         }//Initialize();
         private void InitializingGame()
@@ -67,6 +74,8 @@ namespace MonoGame
             KeyBoardDetection.keys(_graphics); //objeto para detectar las teclas pulsadas.
             Menu.Update(); //update del menu.
             CameraFollowPlayer();
+            Colides.PlayerColideObjects(Player);
+            bool colideObject = Colides.PlayerColideObjects(Player);
             base.Update(gameTime);
         }//Update();
         private void CameraFollowPlayer()
@@ -105,6 +114,12 @@ namespace MonoGame
                 Map.DrawWaterSprites(Player, _spriteBatch, (int)Map.Size.X, (int)Map.Size.Y);
 
                 Map.DrawHouseSprites(Player, _spriteBatch, (int)Map.Size.X, (int)Map.Size.Y);
+
+                foreach (Object o in Object.Objetos)
+                {
+                    o.Draw(_spriteBatch);
+                }
+
                 if (Colides.PlayerEnteringBush(Player))
                 {
                     Player.Draw(_spriteBatch);

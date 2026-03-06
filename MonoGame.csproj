@@ -57,6 +57,9 @@
     <None Update="Content\Player.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Content\r.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Content\w.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
