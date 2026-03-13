@@ -12,6 +12,8 @@ namespace MonoGame
         public static bool a;
         public static bool s;
         public static bool d;
+        public static bool e;
+
         private static bool escPress = false;
         private static bool escRelease = true;
 
@@ -43,6 +45,11 @@ namespace MonoGame
             get { return escPress; }
             set { escPress = value; }
         }
+        public static bool E
+        {
+            get { return e; }
+            
+        }
         #endregion
 
         #region metodos
@@ -67,12 +74,15 @@ namespace MonoGame
                 escRelease = false;
 
             }
+            if (keyboard.IsKeyDown(Keys.E)) { e = true; }
 
             if (keyboard.IsKeyUp(Keys.W)) { w = false; }
             if (keyboard.IsKeyUp(Keys.A)) { a = false; }
             if (keyboard.IsKeyUp(Keys.S)) { s = false; }
             if (keyboard.IsKeyUp(Keys.D)) { d = false; }
             if (keyboard.IsKeyUp(Keys.Escape)) { escRelease = true; }
+            if (keyboard.IsKeyUp(Keys.E)) { e = false; }
+
         }//keys();
         #endregion 
     }

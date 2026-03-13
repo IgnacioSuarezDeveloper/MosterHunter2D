@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Security.AccessControl;
 using System.Threading.Tasks;
 
 
@@ -26,7 +28,9 @@ namespace MonoGame
         #endregion
 
         #region metodos
-        public Game1()                                  //constructor
+        
+        //constructor
+        public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -36,18 +40,17 @@ namespace MonoGame
 
 
         }//Game1();
-        protected override void Initialize() //inicializacion de objetos propiedades.
+
+        //inicializacion de objetos propiedades.
+        protected override void Initialize() 
         {
 
             InitializingGame();
             Object.CreateObjects(Object.Objetos,Content);
 
-
-
-
-
-
         }//Initialize();
+
+        //inicializando juego.
         private void InitializingGame()
         {
             Player = new MainCharacter(Content, "PersonajeCaminaVertical", GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2 - 50, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2, new Vector2(100, 100), 2); //Creando Objeto MainCharacter.
@@ -59,7 +62,9 @@ namespace MonoGame
             //Map.EntitysTexture2DLoad();
             base.Initialize(); //utilizando Initialize de Game.
         }
-        protected override void LoadContent()//Cargando el contenido.
+
+        //Cargando Contenido.
+        protected override void LoadContent()
         {
 
             Menu.Load(Content, "PlayButton"); //cargando la imagen del menu
@@ -69,15 +74,18 @@ namespace MonoGame
             pixel.SetData(new[] { Color.White });
 
         }//LoadContent();
-        protected override void Update(GameTime gameTime) //bulce principal.
+
+        //bulce principal.
+        protected override void Update(GameTime gameTime) 
         {
             KeyBoardDetection.keys(_graphics); //objeto para detectar las teclas pulsadas.
             Menu.Update(); //update del menu.
-            CameraFollowPlayer();
-            Colides.PlayerColideObjects(Player);
-            bool colideObject = Colides.PlayerColideObjects(Player);
+            CameraFollowPlayer(); //camera sigue al personaje
+            Player.GrabingObjects(Content);//personaje coje objetos
             base.Update(gameTime);
         }//Update();
+
+        //Camara sigue a personaje.
         private void CameraFollowPlayer()
         {
             if (!Menu.active)
@@ -89,20 +97,23 @@ namespace MonoGame
 
             }
         }
-        protected override void Draw(GameTime gameTime)  //bucle donde dibujar Imagenes.
+
+        //bucle donde dibujar Imagenes.
+        protected override void Draw(GameTime gameTime)  
         {
 
              GraphicsDevice.Clear(Color.Green); // Fondo
-            _spriteBatch.Begin(transformMatrix: camera.Transform); 
+            _spriteBatch.Begin(transformMatrix: camera.Transform); //para dibujar anclando la camara al jugador
             
-            DrawEntitiesOrdered();
-            RedRectangleArroundPlayer();
-            DrawMenu();
-            
-            _spriteBatch.End();
+            DrawEntitiesOrdered();//dibujando las entities.
+            RedRectangleArroundPlayer();//rectangulo alrededor de jugador.
+            DrawMenu();//dibujando el menu.
+            _spriteBatch.End();//termina lo que se va a pitar.
             base.Draw(gameTime);
         }//Renderer();
-        private void DrawEntitiesOrdered()
+
+        //dibuja los entities en el mapa.
+        private void DrawEntitiesOrdered() 
         {
             if (!Menu.active)
             {
@@ -114,6 +125,9 @@ namespace MonoGame
                 Map.DrawWaterSprites(Player, _spriteBatch, (int)Map.Size.X, (int)Map.Size.Y);
 
                 Map.DrawHouseSprites(Player, _spriteBatch, (int)Map.Size.X, (int)Map.Size.Y);
+
+                //diubjando los objetos.
+                
 
                 foreach (Object o in Object.Objetos)
                 {
@@ -134,7 +148,9 @@ namespace MonoGame
 
 
             }
-        }
+        }//DrawEntitiesOrdered;
+
+        //rectangulo rojo alrededor de jugador.
         private void RedRectangleArroundPlayer()
         {
             //rectangulo rojo alrededor de player START.
@@ -164,7 +180,9 @@ namespace MonoGame
 
             //rectangulo rojo alrededor de player END.
         }
-        private void DrawMenu()//dibujar menu
+
+        //dibuja el menu
+        private void DrawMenu()
         {
             if (Menu.active) { Menu.Draw(_spriteBatch); } //dibujando el meno.
         }

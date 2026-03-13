@@ -80,7 +80,9 @@ namespace MonoGame
                     break;
             }
         }//Entity();
-        public void Draw(SpriteBatch _spriteBatch) //dibuja la imagen recortada por el sprite que quiero.
+
+        //dibuja la imagen recortada por el sprite que quiero.
+        public void Draw(SpriteBatch _spriteBatch) 
         {
             _spriteBatch.Draw(Texture, new Rectangle((int)this.posX, (int)this.posY, (int)size.X, (int)size.Y), Color.White); // Pintar imagen
         }//Renderer();

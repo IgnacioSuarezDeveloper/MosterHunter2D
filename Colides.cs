@@ -9,7 +9,8 @@ namespace MonoGame
     internal static class Colides
     {
         #region methods
-        public static bool PlayerEnteringBush(MainCharacter Player) //jugador entrando en el arbusto.
+        //jugador entrando en el arbusto.
+        public static bool PlayerEnteringBush(MainCharacter Player) 
         {
             bool inside = false;
             foreach (Vector2 bushIndex in Map.BUSHES)
@@ -29,7 +30,9 @@ namespace MonoGame
             }
             return inside;
         }//PlayerEnteringBush();
-        public static bool PlayerColidHouses(MainCharacter Player) //comprueba la distancia de colision con las casas y la devuelve.
+
+        //comprueba la distancia de colision con las casas y la devuelve.
+        public static bool PlayerColidHouses(MainCharacter Player) 
         {
 
             foreach (Vector2 housesIndex in Map.HOUSES) //comprobando la distancia con las casas.
@@ -78,7 +81,9 @@ namespace MonoGame
             }
             return false;
         }//PlayerColidingHouses();
-        public static bool PlayerFutureColidHouses(MainCharacter Player, int futurePosx, int futurePosy)//comprueba la distancia futura de colision
+
+        //comprueba la distancia futura de colision
+        public static bool PlayerFutureColidHouses(MainCharacter Player, int futurePosx, int futurePosy)
         {
             foreach (Vector2 housesIndex in Map.HOUSES) //comprobando la distancia con las casas.
             {
@@ -117,12 +122,14 @@ namespace MonoGame
             }
             return false;
         }//PlayerFutureColidHouses();
-        public static bool PlayerColideObjects(MainCharacter Player)
+
+        //devuelve un string con true y el tipo de objeto si el jugador colisiona con algun objeto y false si no
+        public static string PlayerColideObjects(MainCharacter Player)
         {
-            foreach (Object objeto in Object.Objetos) //comprobando la distancia con las casas.
+            int index = 0;
+            foreach (Object objeto in Object.Objetos) //comprobando la distancia con los objetos.
             {
-
-
+                
                 int objetox = (int)objeto.Posx;
                 int objetoy = (int)objeto.Posy;
 
@@ -156,12 +163,12 @@ namespace MonoGame
                 int minimunDistance = objetosizex / 2 - 20;
                 if (distance <= minimunDistance)
                 {
-                    Debug.WriteLine(distance);
-                    return true;
+                    //Debug.WriteLine(distance);
+                    return $"true,{objeto.Type},{index}";
                 }
-                
+                ++index;
             }
-            return false;
+            return $"false,{Type.None},none";
         }
         #endregion methods
     }

@@ -68,7 +68,9 @@ namespace MonoGame
         #endregion
 
         #region metodos
-        public static string FileTo1DArray(string path)//Lee el fichero de texto y devuevle un string con los caracteres y comas.
+
+        //Lee el fichero de texto y devuevle un string con los caracteres y comas.
+        public static string FileTo1DArray(string path)
         {
             bool initCol = false;
             string file = "";
@@ -88,7 +90,9 @@ namespace MonoGame
             }
             return file;
         }//FileToString1D();
-        public static void StringTo2DArray(string file) //Combierte el string con caracteres del mapa en un array de 1 dimension y otro de 2 dimensiones. 
+
+        //Combierte el string con caracteres del mapa en un array de 1 dimension y otro de 2 dimensiones.
+        public static void StringTo2DArray(string file)  
         {
             map = file.Split(',');
             map2d = new string[row, col];
@@ -110,18 +114,24 @@ namespace MonoGame
                 }
             }
 
-        }//StringTo2DArray();       
-        public static void MapEntities(ContentManager content) // Crea los objetos con la imagen correspondiente y la posicion correspondiente.
+        }//StringTo2DArray();
+
+        // Crea los objetos con la imagen correspondiente y la posicion correspondiente.
+        public static void MapEntities(ContentManager content) 
         {
 
             InitializeEntitiesArray();
             EntitysFull(content);
 
         }//MapEntities();
+
+        //inicializa el array de entidades del mapa
         public static void InitializeEntitiesArray()
         {
             EntitysTexture2D = new Entity[row, col];
         }
+
+        //rellena el array de entities.
         public static void  EntitysFull(ContentManager content)
         {
             for (int i = 0; i < row; i++)
@@ -155,6 +165,8 @@ namespace MonoGame
                 }
             }
         }
+
+        //pinta el fondo de hierba.
         public static void DrawBackground(MainCharacter Player, SpriteBatch _spriteBatch)
         {
             for (int i = 0; i < row - 1; i++)
@@ -173,7 +185,9 @@ namespace MonoGame
                         );
                 }
             }
-        } //dibuja el fondo de hierba.
+        }
+
+        //dibuja sprites de hierba.
         public static void DrawGrassSprites(MainCharacter Player, SpriteBatch _spriteBatch, int width, int heigth)
         {
             for (int i = 0; i < row - 1; i++)
@@ -200,7 +214,9 @@ namespace MonoGame
                     }
                 }
             }
-        }//dibuja sprites de hierba.
+        }
+
+        // dibuja sprites de Arena.
         public static void DrawArenaSprites(MainCharacter Player, SpriteBatch _spriteBatch, int width, int heigth)
         {
             for (int i = 0; i < row - 1; i++)
@@ -227,7 +243,9 @@ namespace MonoGame
                     }
                 }
             }
-        }// dibuja sprites de Arena.
+        }
+
+        //dibuja sprites de Agua.
         public static void DrawWaterSprites(MainCharacter Player, SpriteBatch _spriteBatch, int width, int heigth)
         {
             for (int i = 0; i < row - 1; i++)
@@ -254,7 +272,9 @@ namespace MonoGame
                     }
                 }
             }
-        }//dibuja sprites de Agua.
+        }
+
+        //dibuja sprites de arbustos.
         public static void DrawBushSprites(MainCharacter Player, SpriteBatch _spriteBatch, int width, int heigth)
         {
             for (int i = 0; i < row - 1; i++)
@@ -288,7 +308,9 @@ namespace MonoGame
                     }
                 }
             }
-        }//dibuja sprites de arbustos.
+        }
+
+        //dibuja sprites de Casas.
         public static void DrawHouseSprites(MainCharacter Player, SpriteBatch _spriteBatch, int width, int heigth)
         {
             for (int i = 0; i < row - 1; i++)
@@ -322,8 +344,10 @@ namespace MonoGame
                 }
             }
 
-        }//dibuja sprites de Casas.
-        public static void Movement(MainCharacter Player) //Movimiento del mapa en funcion de la tecla presionada.
+        }
+
+        //Movimiento del mapa en funcion de la tecla presionada.
+        public static void Movement(MainCharacter Player) 
         {
             bool initialized = false;
 

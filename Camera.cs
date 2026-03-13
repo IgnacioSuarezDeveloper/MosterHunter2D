@@ -10,12 +10,14 @@ namespace MonoGame
         private int _screenWidth;
         private int _screenHeight;
 
+        //inicializando la camara a el ancho y alto de la pantalla.
         public Camera(int screenWidth, int screenHeight)
         {
             _screenWidth = screenWidth;
             _screenHeight = screenHeight;
         }
 
+        //camara sigue al personaje.
         public void Follow(Vector2 targetPosition)
         {
             Position = targetPosition;

@@ -14,11 +14,15 @@ namespace MonoGame
         #endregion
 
         #region metodos
-        static public void Load(ContentManager content, string imageName) //carga la imagen.
+
+        //carga la imagen.
+        static public void Load(ContentManager content, string imageName) 
         {
             texture = content.Load<Texture2D>(imageName);
         }//load();
-        static public void Draw(SpriteBatch _spriteBatch) //dibuja la imagen;
+
+        //dibuja la imagen;
+        static public void Draw(SpriteBatch _spriteBatch)
         {
             if (active)
             {
